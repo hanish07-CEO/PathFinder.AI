@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useStudent } from '../context/StudentContext';
+import { LandingHero } from './LandingHero';
 import { TicketStubHero } from './TicketStubLanding';
 import {
   Compass,
@@ -24,7 +25,8 @@ import {
 } from 'lucide-react';
 
 export const LandingPageLayer: React.FC = () => {
-  const { setCurrentLayer } = useStudent();
+  const { setCurrentLayer, setIsOnboardingOpen } = useStudent();
+  const [heroTheme, setHeroTheme] = useState<'modern' | 'ticket'>('modern');
 
   const sections = [
     { label: 'Overview', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
@@ -84,7 +86,7 @@ export const LandingPageLayer: React.FC = () => {
 
       {/* Primary Top Bar */}
       <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#060913]/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5 shrink-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-lg shadow-indigo-600/30 ring-1 ring-white/20">
               <Compass className="h-5 w-5" />
@@ -94,7 +96,7 @@ export const LandingPageLayer: React.FC = () => {
             </span>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
             <a href="#problem" className="hover:text-white transition-colors">
               Why Beyond Marks
             </a>
@@ -110,6 +112,16 @@ export const LandingPageLayer: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => setHeroTheme(heroTheme === 'modern' ? 'ticket' : 'modern')}
+              className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors cursor-pointer"
+              title="Toggle landing page hero theme"
+            >
+              <Sparkles className="h-3 w-3 text-indigo-400" />
+              <span>Theme: {heroTheme === 'modern' ? 'Modern AI' : 'Ticket Stub'}</span>
+            </button>
+
             <button
               onClick={() => setCurrentLayer('login')}
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors whitespace-nowrap shadow-sm cursor-pointer"
@@ -129,41 +141,51 @@ export const LandingPageLayer: React.FC = () => {
         </div>
       </header>
 
-      {/* Hero Section using the user-specified TicketStub Component */}
+      {/* Hero Section - Defaults to the Modern PathFinder AI Hero (Second Photo) */}
       <div className="relative z-10">
-        <TicketStubHero
-          brand="PathFinder"
-          wordmark="PathFinder"
-          company="PathFinder AI"
-          year={2026}
-          sections={sections}
-          eyebrow={[
-            'Beyond conventional exam marks',
-            'Uncovering hidden student potential',
-            'Closing prerequisite gaps while you learn',
-          ]}
-          headline={[
-            'Discover your strengths.',
-            'Close your knowledge gaps.',
-          ]}
-          description="Connect your course performance, confidence metrics, and practical projects. PathFinder AI discovers latent abilities, diagnoses root-cause prerequisites, and generates personalized career roadmaps beyond grades."
-          cta={{ label: 'Student Portal' }}
-          onCtaClick={() => setCurrentLayer('login')}
-          linkGroups={linkGroups}
-          statusCaption="Diagnostic Engine"
-          statusLabels={['Active Diagnosis', 'Engine Paused']}
-          count={14820930}
-          countLabel="Pathways Analyzed"
-          rate={2.2}
-          background="transparent"
-          ink="#f1f5f9"
-          muted="#94a3b8"
-          accent="#ff6d36"
-          accentDeep="#d95a32"
-          accentInk="#070b14"
-          halftone={true}
-          className="border-b border-slate-800/80"
-        />
+        {heroTheme === 'modern' ? (
+          <LandingHero
+            onStartAnalysis={() => {
+              setIsOnboardingOpen(true);
+              setCurrentLayer('dashboard');
+            }}
+            onStudentPortal={() => setCurrentLayer('login')}
+          />
+        ) : (
+          <TicketStubHero
+            brand="PathFinder"
+            wordmark="PathFinder"
+            company="PathFinder AI"
+            year={2026}
+            sections={sections}
+            eyebrow={[
+              'Beyond conventional exam marks',
+              'Uncovering hidden student potential',
+              'Closing prerequisite gaps while you learn',
+            ]}
+            headline={[
+              'Discover your strengths.',
+              'Close your knowledge gaps.',
+            ]}
+            description="Connect your course performance, confidence metrics, and practical projects. PathFinder AI discovers latent abilities, diagnoses root-cause prerequisites, and generates personalized career roadmaps beyond grades."
+            cta={{ label: 'Student Portal' }}
+            onCtaClick={() => setCurrentLayer('login')}
+            linkGroups={linkGroups}
+            statusCaption="Diagnostic Engine"
+            statusLabels={['Active Diagnosis', 'Engine Paused']}
+            count={14820930}
+            countLabel="Pathways Analyzed"
+            rate={2.2}
+            background="transparent"
+            ink="#f1f5f9"
+            muted="#94a3b8"
+            accent="#ff6d36"
+            accentDeep="#d95a32"
+            accentInk="#070b14"
+            halftone={true}
+            className="border-b border-slate-800/80"
+          />
+        )}
       </div>
 
       {/* Problem & Solution Comparison Section */}

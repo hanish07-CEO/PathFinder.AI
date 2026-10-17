@@ -403,7 +403,7 @@ const CSS =
   ".tsf-h span span,.tsf-odo-s,.tsf-stub,.tsf-stub svg,.tsf-cta::before,.tsf-nav-bar,.tsf-link,.tsf-top{transition:none}" +
   "}"
 
-function Mark({ className, style }: { className?: string; style?: React.CSSProperties }) {
+export function Mark({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <svg viewBox="0 0 48 48" className={className} style={style} aria-hidden="true" focusable="false">
       <path fillRule="evenodd" fill="currentColor" d="M24 1.5 46.5 24 24 46.5 1.5 24Z M19.5 15.5 32 24 19.5 32.5Z" />
@@ -424,7 +424,7 @@ function useReducedMotion() {
   return reduced
 }
 
-function Odometer({ value }: { value: number }) {
+export function Odometer({ value }: { value: number }) {
   const s = formatCount(value)
   return (
     <span className="tsf-odo" aria-hidden="true">
