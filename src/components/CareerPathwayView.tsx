@@ -15,7 +15,6 @@ import {
   X,
   Layers,
 } from 'lucide-react';
-import careerVisualImg from '../assets/images/career_pathways_visual_1792212105755.jpg';
 
 export const CareerPathwayView: React.FC = () => {
   const { analysis, profile, setActiveTab } = useStudent();
@@ -82,7 +81,7 @@ export const CareerPathwayView: React.FC = () => {
 
           <div className="lg:col-span-4 relative rounded-xl overflow-hidden border border-slate-800 aspect-video hidden lg:block">
             <img
-              src={careerVisualImg}
+              src="/src/assets/images/career_pathways_visual_1792212105755.jpg"
               alt="Career Pathways Visual"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"

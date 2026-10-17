@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { useStudent } from '../context/StudentContext';
 import {
+  Compass,
   ArrowLeft,
   ArrowRight,
-  Eye,
-  EyeOff,
-  Brain,
-  Target,
-  BarChart3,
-  Rocket,
-  Upload,
+  UserCheck,
+  Lock,
+  Mail,
   Sparkles,
-  Briefcase,
   Check,
   PlusCircle,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  Brain,
   HelpCircle,
-  Compass,
 } from 'lucide-react';
 
 export const LoginLayer: React.FC = () => {
@@ -24,9 +23,8 @@ export const LoginLayer: React.FC = () => {
   const [emailInput, setEmailInput] = useState<string>('aarav.sharma@campus.edu');
   const [passwordInput, setPasswordInput] = useState<string>('••••••••••••');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [staySignedIn, setStaySignedIn] = useState<boolean>(true);
-  const [newsletterEmail, setNewsletterEmail] = useState<string>('');
-  const [subscribed, setSubscribed] = useState<boolean>(false);
+  const [rememberMe, setRememberMe] = useState<boolean>(true);
+  const [activePersonaHover, setActivePersonaHover] = useState<string | null>(null);
 
   const handleCustomLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,695 +36,255 @@ export const LoginLayer: React.FC = () => {
     loginWithCustom(formattedName, emailInput);
   };
 
-  const handleNewsletter = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-  };
-
   return (
-    <div className="min-h-screen flex flex-col relative bg-[#f4f1ea] text-black font-sans selection:bg-[#e8ff00] selection:text-black">
-      {/* Neobrutalist Scoped Styles */}
-      <style>{`
-        .neo-font-display {
-          font-family: 'Archivo', 'Plus Jakarta Sans', sans-serif;
-          text-transform: uppercase;
-        }
-        .neo-font-mono {
-          font-family: 'Space Mono', 'JetBrains Mono', monospace;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
-        }
-        .neo-font-body {
-          font-family: 'Space Grotesk', 'DM Sans', sans-serif;
-        }
-        .neo-grid-dots {
-          background-image: radial-gradient(#000000 1.4px, transparent 1.4px);
-          background-size: 22px 22px;
-        }
-        .neo-border-heavy {
-          border: 3px solid #000000;
-        }
-        .neo-border-med {
-          border: 2px solid #000000;
-        }
-        .neo-shadow-sm {
-          box-shadow: 4px 4px 0 #000000;
-        }
-        .neo-shadow {
-          box-shadow: 7px 7px 0 #000000;
-        }
-        .neo-shadow-lg {
-          box-shadow: 11px 11px 0 #000000;
-        }
-        .neo-shadow-acid {
-          box-shadow: 6px 6px 0 #e8ff00, 9px 9px 0 #000000;
-        }
-        .neo-press {
-          transition: transform 0.1s ease, box-shadow 0.1s ease;
-        }
-        .neo-press:hover {
-          transform: translate(2px, 2px);
-          box-shadow: 3px 3px 0 #000000;
-        }
-        .neo-press:active {
-          transform: translate(6px, 6px);
-          box-shadow: 0px 0px 0 #000000;
-        }
-        @keyframes neo-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .neo-marquee-track {
-          display: flex;
-          width: fit-content;
-          animation: neo-marquee 24s linear infinite;
-        }
-        .neo-marquee-track:hover {
-          animation-play-state: paused;
-        }
-        .neo-input:focus {
-          background-color: #fffef2;
-          outline: none;
-          box-shadow: 4px 4px 0 #e8ff00, 7px 7px 0 #000000;
-        }
-      `}</style>
-
-      {/* (1) STICKY TOP NAV */}
-      <nav className="sticky top-0 z-50 h-[68px] bg-[#f4f1ea] border-b-[3px] border-black">
-        <div className="max-w-[1240px] mx-auto h-full px-5 flex items-center justify-between">
-          {/* Brand Logo & Name */}
-          <button
-            type="button"
-            onClick={() => setCurrentLayer('landing')}
-            className="flex items-center gap-3.5 text-left group focus:outline-none cursor-pointer"
-          >
-            <div className="w-10 h-10 bg-[#e8ff00] border-[3px] border-black neo-shadow-sm flex items-center justify-center group-hover:rotate-3 transition-transform">
-              <Compass className="h-5 w-5 text-black stroke-[2.5]" />
-            </div>
-            <div>
-              <span className="neo-font-display font-[900] text-[22px] tracking-tight text-black block leading-none">
-                PATHFINDER
-              </span>
-              <span className="neo-font-mono text-[9px] font-bold text-black/70 tracking-widest block mt-0.5">
-                AI CAREER INTELLIGENCE
-              </span>
-            </div>
-          </button>
-
-          {/* Quick Return & Flow Actions */}
-          <div className="flex items-center gap-4 sm:gap-6">
-            <button
-              type="button"
-              onClick={() => setCurrentLayer('landing')}
-              className="neo-font-display font-[800] text-xs sm:text-sm text-black flex items-center gap-1.5 hover:underline decoration-2 underline-offset-4 cursor-pointer"
-            >
-              <ArrowLeft className="h-4 w-4 stroke-[2.5]" />
-              <span className="hidden sm:inline">RETURN TO OVERVIEW</span>
-              <span className="sm:hidden">OVERVIEW</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                resetToFreshProfile();
-                setCurrentLayer('dashboard');
-              }}
-              className="bg-black text-[#f4f1ea] border-2 border-black neo-font-display font-[800] text-xs sm:text-sm px-4 sm:px-6 py-2 neo-shadow-sm neo-press cursor-pointer"
-            >
-              START FREE
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* (2) ACID MARQUEE BANNER */}
-      <div className="bg-[#e8ff00] border-b-[3px] border-black overflow-hidden h-11 flex items-center select-none">
-        <div className="neo-marquee-track whitespace-nowrap">
-          <span className="neo-font-mono font-[800] text-xs px-4 flex items-center text-black">
-            DISCOVER HIDDEN STRENGTHS &nbsp;★&nbsp; 45,000+ CAREER PATHWAYS &nbsp;★&nbsp; AI-POWERED INSIGHTS &nbsp;★&nbsp; BEYOND MARKS AND GRADES &nbsp;★&nbsp; ROOT-CAUSE GAP TREES &nbsp;★&nbsp; DATA-DRIVEN READINESS &nbsp;★&nbsp;
-          </span>
-          <span className="neo-font-mono font-[800] text-xs px-4 flex items-center text-black">
-            DISCOVER HIDDEN STRENGTHS &nbsp;★&nbsp; 45,000+ CAREER PATHWAYS &nbsp;★&nbsp; AI-POWERED INSIGHTS &nbsp;★&nbsp; BEYOND MARKS AND GRADES &nbsp;★&nbsp; ROOT-CAUSE GAP TREES &nbsp;★&nbsp; DATA-DRIVEN READINESS &nbsp;★&nbsp;
-          </span>
-        </div>
+    <div className="relative min-h-screen bg-[#060913] text-slate-100 flex flex-col font-sans selection:bg-indigo-600 selection:text-white overflow-hidden">
+      {/* Dynamic Ambient Background Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-indigo-600/20 blur-[130px] rounded-full" />
+        <div className="absolute top-1/2 -right-36 w-[500px] h-[500px] bg-teal-500/10 blur-[130px] rounded-full" />
+        <div className="absolute -bottom-32 -left-36 w-[500px] h-[500px] bg-violet-600/15 blur-[130px] rounded-full" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b18_1px,transparent_1px),linear-gradient(to_bottom,#1e293b18_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000_80%,transparent_100%)]" />
       </div>
 
-      {/* (3) HERO + SIGN IN SECTION */}
-      <main className="neo-grid-dots relative pb-20 neo-font-body">
-        <div className="max-w-[1240px] mx-auto px-5 pt-12 lg:pt-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            
-            {/* Pitch Column (Left) */}
-            <div className="lg:col-span-7 space-y-7 order-2 lg:order-1">
-              {/* Badge */}
-              <div className="inline-block bg-white neo-border-med px-4 py-1.5 neo-shadow-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-[#e8ff00] neo-border-med" />
-                  <span className="neo-font-mono text-[10px] font-bold tracking-[0.2em] text-black">
-                    STUDENT PORTAL · LAYER 02
+      {/* Top Bar with Return Link */}
+      <header className="relative z-10 border-b border-slate-800 bg-[#060913]/85 backdrop-blur-md px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <button
+          onClick={() => setCurrentLayer('landing')}
+          className="flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Return to Landing Page</span>
+        </button>
+
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-sm ring-1 ring-white/10">
+            <Compass className="h-4 w-4" />
+          </div>
+          <span className="text-base font-bold text-white tracking-tight">PathFinder AI</span>
+        </div>
+
+        <div className="w-32 hidden sm:block" />
+      </header>
+
+      {/* Main Authentication Card Grid */}
+      <main className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-4xl space-y-8 my-auto">
+          {/* Header Title */}
+          <div className="text-center max-w-lg mx-auto space-y-2">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-950/60 border border-indigo-900/60 px-3 py-1 rounded-full">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              <span>Layer 2: Student Authentication Portal</span>
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Sign In to Your Intelligence Workspace
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-400">
+              Access your personalized aptitude diagnosis, root-cause knowledge gaps, and adaptive roadmap.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+            {/* Left Card: 1-Click Demo Personas */}
+            <div className="md:col-span-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 flex flex-col justify-between space-y-5 backdrop-blur-sm shadow-xl">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-teal-400 uppercase tracking-wider block">
+                    Fast Pass · One-Click Demo Personas
                   </span>
+                  <span className="text-[11px] text-slate-500">Instant Access</span>
                 </div>
-              </div>
-
-              {/* Bold Display Headline */}
-              <h1 className="neo-font-display font-[900] text-[2.5rem] sm:text-[3.8rem] lg:text-[4.4rem] leading-[0.93] tracking-tight text-black">
-                ANALYZE YOUR{' '}
-                <span className="bg-[#e8ff00] px-2 py-0.5 border-2 border-black inline-block transform -rotate-1 shadow-[3px_3px_0_#000]">
-                  [POTENTIAL]
-                </span>
-                <br />
-                UNLOCK YOUR FUTURE.
-              </h1>
-
-              {/* Mission Statement Box */}
-              <div className="bg-white neo-border-heavy p-6 neo-shadow max-w-xl">
-                <p className="text-base sm:text-lg leading-relaxed text-black/90 font-medium">
-                  Stop following conventional cutoff marks. PathFinder AI maps your unique cognitive profile, course performance, and practical projects against real-world industry demand to reveal latent pathways you never considered.
+                <h2 className="text-base font-bold text-white">Choose a Verified Student Profile</h2>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Test the complete analytics engine instantly with one of three pre-calibrated student records.
                 </p>
               </div>
 
-              {/* 2x2 Feature Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
-                <div className="bg-white neo-border-med p-4 neo-shadow-sm flex items-center gap-3.5">
-                  <div className="w-10 h-10 bg-[#e8ff00] neo-border-med flex items-center justify-center shrink-0">
-                    <Brain className="h-5 w-5 text-black stroke-[2.5]" />
-                  </div>
+              <div className="space-y-3">
+                {/* Aarav Sharma Button */}
+                <button
+                  type="button"
+                  onClick={() => loginAsDemo('aarav')}
+                  onMouseEnter={() => setActivePersonaHover('aarav')}
+                  onMouseLeave={() => setActivePersonaHover(null)}
+                  className="w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-indigo-500 hover:bg-indigo-950/20 text-left transition-all group flex items-center justify-between gap-3"
+                >
                   <div>
-                    <span className="neo-font-display font-[800] text-xs text-black block">KNOW YOURSELF</span>
-                    <span className="text-[11px] text-black/70 font-medium">Hidden Aptitudes</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-white group-hover:text-indigo-300">
+                        Aarav Sharma
+                      </span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium">
+                        Hidden Strength
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-slate-400 block mt-0.5">
+                      High Math (94%), Hidden Python (71%) · Goal: AI & Data Science
+                    </span>
                   </div>
-                </div>
+                  <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all shrink-0" />
+                </button>
 
-                <div className="bg-white neo-border-med p-4 neo-shadow-sm flex items-center gap-3.5">
-                  <div className="w-10 h-10 bg-white neo-border-med flex items-center justify-center shrink-0">
-                    <Target className="h-5 w-5 text-black stroke-[2.5]" />
-                  </div>
+                {/* Diya Patel Button */}
+                <button
+                  type="button"
+                  onClick={() => loginAsDemo('diya')}
+                  onMouseEnter={() => setActivePersonaHover('diya')}
+                  onMouseLeave={() => setActivePersonaHover(null)}
+                  className="w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-violet-500 hover:bg-violet-950/20 text-left transition-all group flex items-center justify-between gap-3"
+                >
                   <div>
-                    <span className="neo-font-display font-[800] text-xs text-black block">ALIGN GOALS</span>
-                    <span className="text-[11px] text-black/70 font-medium">Target Benchmarks</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-white group-hover:text-violet-300">
+                        Diya Patel
+                      </span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30 font-medium">
+                        Creative HCI
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-slate-400 block mt-0.5">
+                      Visual Design (95%), Empathy (92%) · Goal: UX/UI Design
+                    </span>
                   </div>
-                </div>
+                  <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-violet-400 group-hover:translate-x-1 transition-all shrink-0" />
+                </button>
 
-                <div className="bg-white neo-border-med p-4 neo-shadow-sm flex items-center gap-3.5">
-                  <div className="w-10 h-10 bg-white neo-border-med flex items-center justify-center shrink-0">
-                    <BarChart3 className="h-5 w-5 text-black stroke-[2.5]" />
-                  </div>
+                {/* Rohan Verma Button */}
+                <button
+                  type="button"
+                  onClick={() => loginAsDemo('rohan')}
+                  onMouseEnter={() => setActivePersonaHover('rohan')}
+                  onMouseLeave={() => setActivePersonaHover(null)}
+                  className="w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-teal-500 hover:bg-teal-950/20 text-left transition-all group flex items-center justify-between gap-3"
+                >
                   <div>
-                    <span className="neo-font-display font-[800] text-xs text-black block">TRACK GROWTH</span>
-                    <span className="text-[11px] text-black/70 font-medium">Weekly Milestones</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-white group-hover:text-teal-300">
+                        Rohan Verma
+                      </span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30 font-medium">
+                        Cyber Systems
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-slate-400 block mt-0.5">
+                      Networks (96%), OS (92%) · Goal: Cybersecurity & Threat Analysis
+                    </span>
                   </div>
-                </div>
-
-                <div className="bg-white neo-border-med p-4 neo-shadow-sm flex items-center gap-3.5">
-                  <div className="w-10 h-10 bg-[#e8ff00] neo-border-med flex items-center justify-center shrink-0">
-                    <Rocket className="h-5 w-5 text-black stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <span className="neo-font-display font-[800] text-xs text-black block">LAUNCH CAREER</span>
-                    <span className="text-[11px] text-black/70 font-medium">Evidence-Backed</span>
-                  </div>
-                </div>
+                  <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-teal-400 group-hover:translate-x-1 transition-all shrink-0" />
+                </button>
               </div>
 
-              {/* Stats Bar */}
-              <div className="bg-black text-white p-6 neo-border-heavy flex flex-wrap gap-6 items-center max-w-xl shadow-[6px_6px_0_#e8ff00]">
-                <div className="flex-1 min-w-[110px]">
-                  <div className="text-[#e8ff00] neo-font-display font-[900] text-3xl leading-none">45K+</div>
-                  <div className="neo-font-mono text-[9px] text-white/70 tracking-widest mt-1">PATHWAYS</div>
-                </div>
-                <div className="w-px h-10 bg-white/25 hidden sm:block" />
-                <div className="flex-1 min-w-[110px]">
-                  <div className="text-[#e8ff00] neo-font-display font-[900] text-3xl leading-none">92%</div>
-                  <div className="neo-font-mono text-[9px] text-white/70 tracking-widest mt-1">ACCURACY</div>
-                </div>
-                <div className="w-px h-10 bg-white/25 hidden sm:block" />
-                <div className="flex-1 min-w-[110px]">
-                  <div className="text-[#e8ff00] neo-font-display font-[900] text-3xl leading-none">3X</div>
-                  <div className="neo-font-mono text-[9px] text-white/70 tracking-widest mt-1">BETTER READINESS</div>
-                </div>
-              </div>
-
-              {/* Fast-Pass 1-Click Demo Profiles */}
-              <div className="bg-white neo-border-heavy p-6 neo-shadow max-w-xl space-y-4">
-                <div className="flex items-center justify-between border-b-2 border-black pb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-[#e8ff00] neo-border-med" />
-                    <span className="neo-font-mono text-xs font-bold text-black tracking-wider">
-                      FAST PASS · 1-CLICK VERIFIED STUDENTS
-                    </span>
-                  </div>
-                  <span className="neo-font-mono text-[10px] text-black/60 font-bold">INSTANT ACCESS</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {/* Aarav Button */}
-                  <button
-                    type="button"
-                    onClick={() => loginAsDemo('aarav')}
-                    className="p-3 bg-[#f4f1ea] hover:bg-[#e8ff00] neo-border-med neo-shadow-sm neo-press text-left cursor-pointer transition-colors"
-                  >
-                    <span className="neo-font-display font-[900] text-xs text-black block">AARAV SHARMA</span>
-                    <span className="neo-font-mono text-[9px] text-black/75 block mt-0.5">MATH 94% · CS</span>
-                    <span className="text-[10px] text-black font-semibold mt-2 inline-flex items-center gap-1">
-                      Load AI & Data →
-                    </span>
-                  </button>
-
-                  {/* Diya Button */}
-                  <button
-                    type="button"
-                    onClick={() => loginAsDemo('diya')}
-                    className="p-3 bg-[#f4f1ea] hover:bg-[#e8ff00] neo-border-med neo-shadow-sm neo-press text-left cursor-pointer transition-colors"
-                  >
-                    <span className="neo-font-display font-[900] text-xs text-black block">DIYA PATEL</span>
-                    <span className="neo-font-mono text-[9px] text-black/75 block mt-0.5">DESIGN 95% · HCI</span>
-                    <span className="text-[10px] text-black font-semibold mt-2 inline-flex items-center gap-1">
-                      Load UX / UI →
-                    </span>
-                  </button>
-
-                  {/* Rohan Button */}
-                  <button
-                    type="button"
-                    onClick={() => loginAsDemo('rohan')}
-                    className="p-3 bg-[#f4f1ea] hover:bg-[#e8ff00] neo-border-med neo-shadow-sm neo-press text-left cursor-pointer transition-colors"
-                  >
-                    <span className="neo-font-display font-[900] text-xs text-black block">ROHAN VERMA</span>
-                    <span className="neo-font-mono text-[9px] text-black/75 block mt-0.5">SECURITY 96% · OS</span>
-                    <span className="text-[10px] text-black font-semibold mt-2 inline-flex items-center gap-1">
-                      Load Cyber →
-                    </span>
-                  </button>
-                </div>
+              <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex items-center gap-1.5">
+                <Brain className="h-3.5 w-3.5 text-indigo-400" />
+                <span>Simulates full student session with local persistence</span>
               </div>
             </div>
 
-            {/* Sign-In Card (Right Column) */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
-              <div className="w-full max-w-[460px] bg-white neo-border-heavy neo-shadow-lg relative p-7 sm:p-9">
-                {/* Corner Tab */}
-                <div className="absolute -top-3.5 -right-3.5 bg-black text-[#e8ff00] neo-font-mono text-[10px] font-bold py-1 px-3 neo-border-med neo-shadow-sm transform rotate-1">
-                  / LOGIN PORTAL
-                </div>
+            {/* Right Card: Standard Credentials / Custom Onboarding */}
+            <div className="md:col-span-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 flex flex-col justify-between space-y-5 backdrop-blur-sm shadow-xl">
+              <div className="space-y-1.5">
+                <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider block">
+                  Student Account Login
+                </span>
+                <h2 className="text-base font-bold text-white">Enter with Campus ID or Email</h2>
+              </div>
 
-                <div className="mb-7">
-                  <div className="inline-block bg-[#e8ff00] neo-border-med px-2.5 py-0.5 mb-2 neo-shadow-sm">
-                    <span className="neo-font-mono text-[9px] font-bold text-black tracking-wider">SECURE ACCESS</span>
-                  </div>
-                  <h2 className="neo-font-display font-[900] text-3xl sm:text-4xl text-black leading-tight">
-                    STUDENT SIGN IN
-                  </h2>
-                  <p className="text-black/70 font-medium text-sm mt-1">
-                    Explore your personalized diagnostic intelligence.
-                  </p>
-                </div>
-
-                <form onSubmit={handleCustomLogin} className="space-y-5">
-                  {/* Email Field */}
-                  <div className="space-y-1.5">
-                    <label className="neo-font-display font-[800] text-xs tracking-wider text-black block">
-                      EMAIL / STUDENT ID
-                    </label>
+              <form onSubmit={handleCustomLogin} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                    Email / Student Identifier
+                  </label>
+                  <div className="relative">
+                    <Mail className="h-4 w-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
-                      type="email"
+                      type="text"
                       required
                       value={emailInput}
                       onChange={(e) => setEmailInput(e.target.value)}
-                      placeholder="YOU@ACADEMIA.EDU"
-                      className="w-full p-3.5 neo-border-heavy neo-shadow-sm neo-input placeholder:text-black/40 text-black font-medium text-sm bg-white"
+                      placeholder="e.g. aarav.sharma@campus.edu"
+                      className="w-full rounded-xl bg-slate-950 border border-slate-800 pl-9 pr-3 py-2.5 text-xs text-white focus:border-indigo-500 focus:outline-none"
                     />
                   </div>
+                </div>
 
-                  {/* Password Field */}
-                  <div className="space-y-1.5">
-                    <div className="flex justify-between items-center">
-                      <label className="neo-font-display font-[800] text-xs tracking-wider text-black block">
-                        PASSWORD / KEY
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEmailInput('aarav.sharma@campus.edu');
-                          setPasswordInput('••••••••••••');
-                        }}
-                        className="neo-font-mono text-[10px] font-bold underline decoration-black/40 hover:text-black transition-colors"
-                      >
-                        RESET DEMO
-                      </button>
-                    </div>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        required
-                        value={passwordInput}
-                        onChange={(e) => setPasswordInput(e.target.value)}
-                        placeholder="••••••••••••"
-                        className="w-full p-3.5 pr-11 neo-border-heavy neo-shadow-sm neo-input placeholder:text-black/40 text-black font-medium text-sm bg-white"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-black/60 hover:text-black"
-                        aria-label="Toggle password visibility"
-                      >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Stay signed in custom checkbox */}
-                  <div className="flex items-center gap-3 pt-1">
+                <div>
+                  <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                    Passcode / Verification Key
+                  </label>
+                  <div className="relative">
+                    <Lock className="h-4 w-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={passwordInput}
+                      onChange={(e) => setPasswordInput(e.target.value)}
+                      className="w-full rounded-xl bg-slate-950 border border-slate-800 pl-9 pr-10 py-2.5 text-xs text-white focus:border-indigo-500 focus:outline-none"
+                    />
                     <button
                       type="button"
-                      onClick={() => setStaySignedIn(!staySignedIn)}
-                      className={`w-6 h-6 neo-border-med flex items-center justify-center cursor-pointer transition-colors ${
-                        staySignedIn ? 'bg-[#e8ff00]' : 'bg-white'
-                      }`}
-                      style={{ boxShadow: '2px 2px 0 #000' }}
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
                     >
-                      {staySignedIn && <Check className="h-4 w-4 text-black stroke-[3]" />}
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
-                    <label
-                      onClick={() => setStaySignedIn(!staySignedIn)}
-                      className="neo-font-display font-[800] text-xs text-black cursor-pointer select-none"
-                    >
-                      STAY SIGNED IN
-                    </label>
                   </div>
+                </div>
 
-                  {/* Submit Button */}
+                <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="rounded accent-indigo-500"
+                    />
+                    <span>Remember my session</span>
+                  </label>
                   <button
-                    type="submit"
-                    className="w-full bg-[#e8ff00] text-black neo-border-heavy p-4 neo-shadow neo-font-display font-[900] text-base sm:text-lg neo-press flex items-center justify-center gap-2 cursor-pointer mt-2"
+                    type="button"
+                    onClick={() => {
+                      setEmailInput('aarav.sharma@campus.edu');
+                      setPasswordInput('••••••••••••');
+                    }}
+                    className="text-indigo-400 hover:text-indigo-300"
                   >
-                    <span>UNLOCK INSIGHTS</span>
-                    <ArrowRight className="h-5 w-5 stroke-[2.5]" />
+                    Reset fields
                   </button>
+                </div>
 
-                  {/* Divider */}
-                  <div className="flex items-center gap-3 pt-1">
-                    <div className="h-[2px] bg-black flex-1" />
-                    <span className="neo-font-mono text-[10px] font-bold text-black px-1">OR CONTINUE WITH</span>
-                    <div className="h-[2px] bg-black flex-1" />
-                  </div>
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20"
+                >
+                  <span>Sign In & Open Dashboard</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </form>
 
-                  {/* Secondary Quick Access Grid */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => loginAsDemo('aarav')}
-                      className="bg-white neo-border-med p-3 flex items-center justify-center gap-2 neo-shadow-sm neo-press cursor-pointer hover:bg-[#fffef2]"
-                    >
-                      <Sparkles className="h-4 w-4 text-black stroke-[2.5]" />
-                      <span className="neo-font-display font-[800] text-xs text-black">DEMO PROFILE</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        resetToFreshProfile();
-                        setCurrentLayer('dashboard');
-                      }}
-                      className="bg-white neo-border-med p-3 flex items-center justify-center gap-2 neo-shadow-sm neo-press cursor-pointer hover:bg-[#fffef2]"
-                    >
-                      <PlusCircle className="h-4 w-4 text-black stroke-[2.5]" />
-                      <span className="neo-font-display font-[800] text-xs text-black">NEW STUDENT</span>
-                    </button>
-                  </div>
-
-                  {/* Bottom Prompt */}
-                  <p className="text-center neo-font-display font-[800] text-xs text-black pt-2">
-                    FIRST TIME HERE?{' '}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        resetToFreshProfile();
-                        setCurrentLayer('dashboard');
-                      }}
-                      className="underline decoration-black decoration-2 underline-offset-2 hover:bg-[#e8ff00] px-1 transition-colors cursor-pointer"
-                    >
-                      TAKE 4-STEP ASSESSMENT →
-                    </button>
-                  </p>
-                </form>
+              {/* Divider & Custom Registration */}
+              <div className="pt-3 border-t border-slate-800 text-center space-y-2">
+                <span className="text-[11px] text-slate-500 block">
+                  First time here with your own academic marks?
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    resetToFreshProfile();
+                    setCurrentLayer('dashboard');
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-teal-400 hover:text-teal-300"
+                >
+                  <PlusCircle className="h-3.5 w-3.5" />
+                  <span>Start Custom 4-Step Student Assessment</span>
+                </button>
               </div>
             </div>
-
           </div>
         </div>
       </main>
 
-      {/* (4) BLACK TRUST BAR */}
-      <section className="bg-black py-9 border-y-[3px] border-black text-white">
-        <div className="max-w-[1240px] mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-6">
-          <span className="neo-font-mono text-[#e8ff00] text-xs font-bold tracking-wider">
-            BENCHMARKED AGAINST CURRICULA AT:
-          </span>
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 opacity-95">
-            <span className="neo-font-display font-[900] text-xl tracking-wider">STANFORD</span>
-            <span className="neo-font-display font-[900] text-xl tracking-wider">MIT</span>
-            <span className="neo-font-display font-[900] text-xl tracking-wider">CAMBRIDGE</span>
-            <span className="neo-font-display font-[900] text-xl tracking-wider">OXFORD</span>
-            <span className="neo-font-display font-[900] text-xl tracking-wider">HARVARD</span>
-            <span className="neo-font-display font-[900] text-xl tracking-wider">YALE</span>
-          </div>
-        </div>
-      </section>
-
-      {/* (5) HOW IT WORKS */}
-      <section className="py-20 bg-[#f4f1ea] border-b-[3px] border-black">
-        <div className="max-w-[1240px] mx-auto px-5">
-          <div className="mb-14">
-            <div className="inline-block bg-[#e8ff00] neo-border-med px-3 py-1 mb-3 neo-shadow-sm">
-              <span className="neo-font-mono text-[10px] font-bold text-black">DIAGNOSTIC PROCESS</span>
-            </div>
-            <h2 className="neo-font-display font-[900] text-[2.2rem] sm:text-[3.2rem] leading-tight text-black">
-              THREE STEPS TO<br />YOUR EVIDENCE-BASED CAREER.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <div className="bg-white neo-border-heavy p-8 neo-shadow space-y-5">
-              <div className="flex justify-between items-start">
-                <span className="neo-font-mono font-[900] text-[38px] leading-none text-black">01</span>
-                <div className="w-12 h-12 bg-[#e8ff00] neo-border-med flex items-center justify-center neo-shadow-sm">
-                  <Upload className="h-6 w-6 text-black stroke-[2.5]" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="neo-font-display font-[900] text-xl text-black">ENTER PROFILE</h3>
-                <p className="font-medium text-black/75 text-sm leading-relaxed">
-                  Provide course marks alongside subjective confidence, genuine interest ratings, and practical projects.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 2 (Acid) */}
-            <div className="bg-[#e8ff00] neo-border-heavy p-8 neo-shadow space-y-5">
-              <div className="flex justify-between items-start">
-                <span className="neo-font-mono font-[900] text-[38px] leading-none text-black">02</span>
-                <div className="w-12 h-12 bg-white neo-border-med flex items-center justify-center neo-shadow-sm">
-                  <Sparkles className="h-6 w-6 text-black stroke-[2.5]" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="neo-font-display font-[900] text-xl text-black">AI DIAGNOSIS</h3>
-                <p className="font-medium text-black/85 text-sm leading-relaxed">
-                  Our transparent engine flags latent strengths, calculates your Strength Index, and maps root-cause prerequisite gaps.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-white neo-border-heavy p-8 neo-shadow space-y-5">
-              <div className="flex justify-between items-start">
-                <span className="neo-font-mono font-[900] text-[38px] leading-none text-black">03</span>
-                <div className="w-12 h-12 bg-[#e8ff00] neo-border-med flex items-center justify-center neo-shadow-sm">
-                  <Briefcase className="h-6 w-6 text-black stroke-[2.5]" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="neo-font-display font-[900] text-xl text-black">EXPLORE PATHWAYS</h3>
-                <p className="font-medium text-black/75 text-sm leading-relaxed">
-                  Unlock weekly milestones on an adaptive roadmap, compare 10+ industry pathways, and boost readiness scores.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* (6) ACID CTA + CODE TERMINAL MOCK */}
-      <section className="bg-[#e8ff00] border-b-[3px] border-black py-20">
-        <div className="max-w-[1240px] mx-auto px-5 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 space-y-6">
-            <h2 className="neo-font-display font-[900] text-[2.4rem] sm:text-[3.5rem] leading-[0.93] text-black">
-              STOP GUESSING<br />ABOUT YOUR CAREER.
-            </h2>
-            <p className="text-base sm:text-lg font-medium leading-relaxed text-black/85 max-w-lg">
-              Your genuine potential is much more than a single GPA number. Unlock the mathematical multi-vector intelligence needed to prepare for tomorrow's job market with certainty.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button
-                type="button"
-                onClick={() => loginAsDemo('aarav')}
-                className="bg-black text-[#e8ff00] neo-border-heavy px-7 py-4 neo-shadow neo-font-display font-[900] text-base neo-press cursor-pointer flex items-center justify-center gap-2"
-              >
-                <span>SIGN IN WITH DEMO</span>
-                <ArrowRight className="h-4 w-4 stroke-[3]" />
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  resetToFreshProfile();
-                  setCurrentLayer('dashboard');
-                }}
-                className="bg-white text-black neo-border-heavy px-7 py-4 neo-shadow neo-font-display font-[900] text-base neo-press cursor-pointer flex items-center justify-center"
-              >
-                EXPLORE CUSTOM FLOW
-              </button>
-            </div>
-          </div>
-
-          <div className="lg:col-span-6">
-            {/* Faux Canvas / Code Terminal Mock */}
-            <div className="bg-[#f4f1ea] neo-border-heavy p-2 neo-shadow-lg">
-              <div className="bg-white neo-border-med p-4">
-                <div className="flex justify-between items-center mb-3 border-b-2 border-black/15 pb-2">
-                  <span className="neo-font-mono text-[11px] font-bold text-black tracking-normal">
-                    diagnostic-engine / evaluation.json
-                  </span>
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 bg-black" />
-                    <div className="w-2.5 h-2.5 bg-black" />
-                    <div className="w-2.5 h-2.5 neo-border-med bg-[#e8ff00]" />
-                  </div>
-                </div>
-                <div className="neo-font-mono text-[11px] sm:text-[12px] leading-relaxed overflow-x-auto text-black">
-                  <pre className="text-black/90 font-mono">
-{`{
-  "student": "Aarav Sharma",
-  "hidden_strengths": [`}
-                    <span className="bg-[#e8ff00] px-1 font-bold text-black">"Python Scripting (Passion: 95%)"</span>
-{`],
-  "detected_archetype": "The Strategic Systems Architect",
-  "prerequisite_gap": "Probability & Distributions in Linear Systems",
-  "career_match": {
-    "role": `}
-                    <span className="bg-[#e8ff00] px-1 font-bold text-black">"AI & Data Systems Engineer"</span>
-{`,
-    "fit_index": 0.94,
-    "confidence_rating": "HIGH ✓"
-  }
-}`}
-                  </pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* (7) FOOTER */}
-      <footer className="bg-[#f4f1ea] pt-16 pb-12 neo-font-body">
-        <div className="max-w-[1240px] mx-auto px-5">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-14">
-            {/* Brand Col */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#e8ff00] neo-border-heavy flex items-center justify-center neo-shadow-sm">
-                  <Compass className="h-4 w-4 text-black stroke-[3]" />
-                </div>
-                <span className="neo-font-display font-[900] text-xl tracking-tight text-black">
-                  PATHFINDER AI
-                </span>
-              </div>
-              <p className="font-medium text-black/75 text-sm max-w-sm">
-                Intelligent career mapping platform helping students define their own future beyond traditional academic exam marks.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div className="lg:col-span-3 space-y-3">
-              <h4 className="neo-font-display font-[900] text-xs tracking-wider text-black">SYSTEM NAVIGATION</h4>
-              <ul className="space-y-2 font-medium text-black/80 text-xs">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentLayer('landing')}
-                    className="hover:underline font-semibold cursor-pointer"
-                  >
-                    ← Public Landing Page
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => loginAsDemo('aarav')}
-                    className="hover:underline font-semibold cursor-pointer"
-                  >
-                    Aarav Sharma Workspace
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => loginAsDemo('diya')}
-                    className="hover:underline font-semibold cursor-pointer"
-                  >
-                    Diya Patel Workspace
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => loginAsDemo('rohan')}
-                    className="hover:underline font-semibold cursor-pointer"
-                  >
-                    Rohan Verma Workspace
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Newsletter Subscription */}
-            <div className="lg:col-span-4 space-y-3">
-              <h4 className="neo-font-display font-[900] text-xs tracking-wider text-black">STAY INFORMED</h4>
-              <form onSubmit={handleNewsletter} className="flex">
-                <input
-                  type="email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="EMAIL ADDRESS"
-                  className="flex-1 bg-white neo-border-heavy p-2.5 neo-font-mono text-xs neo-input text-black"
-                />
-                <button
-                  type="submit"
-                  className="bg-black text-[#e8ff00] neo-border-heavy border-l-0 px-5 neo-font-display font-[900] text-xs neo-press cursor-pointer"
-                >
-                  {subscribed ? 'SAVED!' : 'GO'}
-                </button>
-              </form>
-              <span className="neo-font-mono text-[9px] text-black/60 block">
-                NO SPAM · ONLY RESEARCH ON STUDENT APTITUDE DYNAMICS
-              </span>
-            </div>
-          </div>
-
-          <div className="border-t-[3px] border-black pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <span className="neo-font-mono text-[10px] font-bold text-black">
-              © 2026 PATHFINDER INTELLIGENCE SYSTEMS · STUDENT PORTAL
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="neo-font-mono text-[10px] bg-black text-[#e8ff00] px-2 py-0.5 font-bold">
-                NEOBRUTALIST THEME ACTIVE
-              </span>
-            </div>
-          </div>
-        </div>
+      {/* Footer */}
+      <footer className="border-t border-slate-800/80 bg-slate-950 py-4 text-center text-xs text-slate-500">
+        PathFinder AI · Secure Student Gateway · Real-Time Diagnostic Scoring
       </footer>
     </div>
   );

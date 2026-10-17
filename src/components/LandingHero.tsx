@@ -1,69 +1,23 @@
 import React from 'react';
 import { useStudent } from '../context/StudentContext';
-import {
-  ArrowRight,
-  Compass,
-  Target,
-  Brain,
-  Sparkles,
-  ChevronRight,
-  LogIn,
-  Layers,
-  BarChart3,
-  Rocket,
-} from 'lucide-react';
-import heroVisualImg from '../assets/images/pathfinder_hero_visual_1792212105910.jpg';
+import { ArrowRight, Compass, Target, Brain, Sparkles, CheckCircle2, ChevronRight, Layers, BarChart3, Rocket } from 'lucide-react';
 
 interface LandingHeroProps {
-  onStartAnalysis?: () => void;
-  onStudentPortal?: () => void;
+  onStartAnalysis: () => void;
 }
 
-export const LandingHero: React.FC<LandingHeroProps> = ({
-  onStartAnalysis,
-  onStudentPortal,
-}) => {
-  const { loadDemoProfile, setActiveTab, setCurrentLayer, setIsOnboardingOpen } =
-    useStudent();
-
-  const handleStartAnalysis = () => {
-    if (onStartAnalysis) {
-      onStartAnalysis();
-    } else {
-      setIsOnboardingOpen(true);
-      setCurrentLayer('dashboard');
-    }
-  };
-
-  const handleStudentPortal = () => {
-    if (onStudentPortal) {
-      onStudentPortal();
-    } else {
-      setCurrentLayer('login');
-    }
-  };
-
-  const handleExploreDemo = () => {
-    loadDemoProfile('aarav');
-    setActiveTab('dashboard');
-    setCurrentLayer('dashboard');
-  };
-
-  const handleInspectGaps = () => {
-    loadDemoProfile('aarav');
-    setActiveTab('gaps');
-    setCurrentLayer('dashboard');
-  };
+export const LandingHero: React.FC<LandingHeroProps> = ({ onStartAnalysis }) => {
+  const { loadDemoProfile, setActiveTab } = useStudent();
 
   return (
     <div className="relative overflow-hidden border-b border-slate-800/80 bg-slate-950">
       {/* Subtle radial backdrop glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-indigo-600/15 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-16 lg:pb-20">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-16 lg:pb-24">
         {/* Top announcement kicker */}
         <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2 text-xs text-indigo-300 bg-indigo-950/70 border border-indigo-800/70 rounded-full px-4 py-1.5 backdrop-blur-sm shadow-sm">
+          <div className="inline-flex items-center gap-2 text-xs text-indigo-300 bg-indigo-950/60 border border-indigo-800/60 rounded-full px-3.5 py-1 backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
             <span>Beyond Conventional Grades · Explainable Intelligence for Student Potential</span>
           </div>
@@ -87,31 +41,26 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           {/* Action CTAs */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
             <button
-              onClick={handleStartAnalysis}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5 whitespace-nowrap cursor-pointer"
+              onClick={onStartAnalysis}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/25 transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
             >
               <span>Start My Analysis</span>
               <ArrowRight className="h-4 w-4" />
             </button>
 
             <button
-              onClick={handleStudentPortal}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-indigo-300 bg-indigo-950/80 border border-indigo-700/80 hover:bg-indigo-900/90 hover:text-white transition-all whitespace-nowrap cursor-pointer shadow-sm"
-            >
-              <LogIn className="h-4 w-4 text-indigo-400" />
-              <span>Student Portal</span>
-            </button>
-
-            <button
-              onClick={handleExploreDemo}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-medium text-slate-200 bg-slate-900 border border-slate-700/80 hover:bg-slate-800 hover:border-slate-600 transition-all whitespace-nowrap cursor-pointer"
+              onClick={() => {
+                loadDemoProfile('aarav');
+                setActiveTab('dashboard');
+              }}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-sm font-medium text-slate-200 bg-slate-900 border border-slate-700/80 hover:bg-slate-800 hover:border-slate-600 transition-all whitespace-nowrap"
             >
               <span>Explore Demo Dashboard</span>
             </button>
           </div>
 
           {/* Clean proof metrics metadata */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-400">
+          <div className="mt-8 flex items-center justify-center gap-4 sm:gap-6 text-xs text-slate-400">
             <span>3 Realistic Demo Profiles</span>
             <span aria-hidden="true">·</span>
             <span>Prerequisite Root-Cause Trees</span>
@@ -128,7 +77,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             {/* Visual Graphic */}
             <div className="lg:col-span-7 relative rounded-xl overflow-hidden border border-slate-800/80 aspect-video group">
               <img
-                src={heroVisualImg}
+                src="/src/assets/images/pathfinder_hero_visual_1792212105910.jpg"
                 alt="PathFinder AI Student Analytics and Career Pathways Visual"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
@@ -176,12 +125,70 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
                   <span className="text-xs font-medium text-slate-200">Probability & Statistics Prerequisite</span>
                 </div>
                 <button
-                  onClick={handleInspectGaps}
-                  className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 cursor-pointer"
+                  onClick={() => setActiveTab('gaps')}
+                  className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1"
                 >
                   <span>Inspect</span>
                   <ChevronRight className="h-3.5 w-3.5" />
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Three-Step Product Flow */}
+        <div className="mt-16 sm:mt-24">
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <h2 className="text-xs font-semibold text-indigo-400 tracking-wider uppercase">How It Works</h2>
+            <p className="mt-1 text-2xl font-bold text-white">Three steps to clarity beyond grades</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Step 1 */}
+            <div className="relative rounded-xl border border-slate-800 bg-slate-900/50 p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-4 font-bold text-sm">
+                  01
+                </div>
+                <h3 className="text-base font-semibold text-white mb-2">Build Your Holistic Profile</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Enter academic marks alongside subject confidence, interest levels, practical projects, and available study hours. No single test score defines you.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-800/60 text-xs text-slate-500">
+                Supports manual entry or CSV spreadsheet import
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative rounded-xl border border-slate-800 bg-slate-900/50 p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20 mb-4 font-bold text-sm">
+                  02
+                </div>
+                <h3 className="text-base font-semibold text-white mb-2">Synthesize AI Intelligence</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Our weighted formula separates exam anxiety from genuine potential, pinpointing hidden strengths and decomposing weak subjects into prerequisite root causes.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-800/60 text-xs text-slate-500">
+                Transparent math with zero black-box hallucination
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative rounded-xl border border-slate-800 bg-slate-900/50 p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 mb-4 font-bold text-sm">
+                  03
+                </div>
+                <h3 className="text-base font-semibold text-white mb-2">Follow Your Roadmap & Land Careers</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Follow a weekly curriculum with practice exercises, portfolio mini-projects, and trackable milestones. Explore 10+ aligned careers with live readiness scores.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-800/60 text-xs text-slate-500">
+                Interactive checkbox tracker updates readiness score in real-time
               </div>
             </div>
           </div>
