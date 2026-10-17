@@ -1,456 +1,680 @@
 import React, { useState } from 'react';
 import { useStudent } from '../context/StudentContext';
-import { TicketStubHero } from './TicketStubLanding';
 import {
-  Compass,
+  Bot,
   ArrowRight,
+  Play,
+  X,
+  Menu,
   Sparkles,
-  Target,
-  Brain,
-  CheckCircle2,
+  PenLine,
+  FileText,
   ChevronRight,
-  Shield,
-  Award,
+  Compass,
+  CheckCircle2,
+  Brain,
+  Target,
   Layers,
-  LogIn,
-  BarChart3,
-  BookOpen,
-  GitBranch,
+  GraduationCap,
+  ShieldCheck,
   TrendingUp,
   Cpu,
-  GraduationCap,
-  Sparkle,
-  Zap,
+  LogIn,
 } from 'lucide-react';
 
 export const LandingPageLayer: React.FC = () => {
   const { setCurrentLayer } = useStudent();
-
-  const sections = [
-    { label: 'Overview', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-    { label: 'Why Beyond Marks', href: '#problem' },
-    { label: 'Three-Step Flow', href: '#how-it-works' },
-    { label: 'Core Capabilities', href: '#capabilities' },
-    { label: 'Scoring Engine', href: '#scoring' },
-    { label: 'Student Portal', onClick: () => setCurrentLayer('login') },
-  ];
-
-  const linkGroups = [
-    {
-      title: 'Platform',
-      links: [
-        { label: 'Student Portal', onClick: () => setCurrentLayer('login') },
-        { label: 'Why Beyond Marks', href: '#problem' },
-        { label: 'Three-Step Flow', href: '#how-it-works' },
-        { label: 'Core Capabilities', href: '#capabilities' },
-      ],
-    },
-    {
-      title: 'Capabilities',
-      links: [
-        { label: 'Hidden Strengths Detection', href: '#capabilities' },
-        { label: 'Root-Cause Prerequisite Trees', href: '#capabilities' },
-        { label: 'Adaptive 4-Week Roadmaps', href: '#capabilities' },
-        { label: '10+ Industry Pathways', href: '#capabilities' },
-      ],
-    },
-  ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'all' | 'analytics' | 'career' | 'roadmap'>('all');
 
   return (
-    <div className="relative min-h-screen bg-[#060913] text-slate-100 flex flex-col font-sans selection:bg-indigo-600 selection:text-white overflow-hidden">
-      {/* Dynamic Ambient Background Elements */}
+    <div className="relative min-h-screen bg-[#FFFFFF] text-[#171717] font-inter overflow-x-hidden selection:bg-[#0084FF] selection:text-white">
+      {/* Background Ambient Aura Spotlights */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Top Radial Glow Orb (Deep Indigo/Violet) */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1100px] h-[650px] bg-gradient-to-b from-indigo-600/25 via-violet-600/15 to-transparent blur-[140px] rounded-full" />
-        
-        {/* Right Corner Radiant Orb (Cyan/Teal) */}
-        <div className="absolute top-1/4 -right-40 w-[600px] h-[600px] bg-gradient-to-bl from-teal-500/15 via-cyan-500/10 to-transparent blur-[130px] rounded-full" />
-        
-        {/* Left Side Accent Orb (Amber/Orange Glow) */}
-        <div className="absolute top-2/3 -left-36 w-[550px] h-[550px] bg-gradient-to-tr from-amber-500/10 via-orange-600/10 to-transparent blur-[120px] rounded-full" />
-        
-        {/* Bottom Ambient Nebula */}
-        <div className="absolute -bottom-40 left-1/3 w-[800px] h-[500px] bg-indigo-700/15 blur-[150px] rounded-full" />
-
-        {/* Digital Grid Pattern Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b18_1px,transparent_1px),linear-gradient(to_bottom,#1e293b18_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_25%,#000_80%,transparent_100%)]" />
-
-        {/* Floating Illuminated Constellation Nodes */}
-        <div className="absolute top-48 left-[15%] w-2 h-2 rounded-full bg-indigo-400 shadow-[0_0_12px_#818cf8] animate-pulse" />
-        <div className="absolute top-80 right-[18%] w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_12px_#2dd4bf] animate-pulse" style={{ animationDelay: '1.2s' }} />
-        <div className="absolute top-[65%] left-[22%] w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_10px_#fbbf24] animate-pulse" style={{ animationDelay: '2.4s' }} />
-        <div className="absolute top-[82%] right-[25%] w-2 h-2 rounded-full bg-violet-400 shadow-[0_0_12px_#a78bfa] animate-pulse" style={{ animationDelay: '0.7s' }} />
+        {/* Soft Sky Blue radial spotlight */}
+        <div className="absolute -top-32 left-[15%] w-[680px] h-[680px] bg-[#60B1FF]/20 rounded-full blur-[110px]" />
+        {/* Vibrant Electric Blue radial spotlight */}
+        <div className="absolute top-[25%] -right-24 w-[720px] h-[720px] bg-[#319AFF]/18 rounded-full blur-[120px]" />
+        {/* Mid-page subtle cyan accent */}
+        <div className="absolute top-[60%] -left-36 w-[600px] h-[600px] bg-[#60B1FF]/15 rounded-full blur-[110px]" />
+        {/* Bottom spotlight */}
+        <div className="absolute -bottom-24 right-[10%] w-[650px] h-[650px] bg-[#319AFF]/15 rounded-full blur-[120px]" />
       </div>
 
-      {/* Primary Top Bar */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#060913]/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-lg shadow-indigo-600/30 ring-1 ring-white/20">
-              <Compass className="h-5 w-5" />
+      {/* A. Floating Liquid-Glass Navigation Bar */}
+      <nav className="fixed top-[30px] left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <div className="w-full max-w-[1280px] h-12 rounded-[16px] pointer-events-auto transition-all duration-300 flex items-center justify-between gap-8 px-6 py-2 bg-white/70 backdrop-blur-[24px] border border-white/80 ring-1 ring-black/5 shadow-[0_8px_30px_rgba(0,132,255,0.06)]">
+          {/* Brand Logo */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-2 group cursor-pointer"
+          >
+            <div className="w-7 h-7 rounded-lg bg-[#0084FF]/10 flex items-center justify-center text-[#0084FF] group-hover:scale-105 transition-transform">
+              <Bot className="w-5 h-5 text-[#0084FF]" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-white whitespace-nowrap">
-              PathFinder AI
+            <span className="font-fustat font-extrabold text-[22px] tracking-tight text-black">
+              Assist<span className="text-[#0084FF]">.</span>
             </span>
-          </div>
+          </button>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="#problem" className="hover:text-white transition-colors">
-              Why Beyond Marks
+          {/* Desktop Inter Links */}
+          <div className="hidden md:flex items-center gap-8 text-[14px] font-medium text-black/65">
+            <a href="#hero" className="hover:text-black transition-colors">
+              Home
             </a>
-            <a href="#how-it-works" className="hover:text-white transition-colors">
-              Three-Step Flow
+            <a href="#features" className="hover:text-black transition-colors">
+              Features
             </a>
-            <a href="#capabilities" className="hover:text-white transition-colors">
-              Core Capabilities
+            <a href="#methodology" className="hover:text-black transition-colors">
+              Company
             </a>
-            <a href="#scoring" className="hover:text-white transition-colors">
-              Scoring Engine
+            <a href="#capabilities" className="hover:text-black transition-colors">
+              Pricing
             </a>
-          </nav>
-
-          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setCurrentLayer('login')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors whitespace-nowrap shadow-sm cursor-pointer"
+              className="hover:text-[#0084FF] text-[#0084FF] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
             >
-              <LogIn className="h-3.5 w-3.5 text-indigo-400" />
               <span>Student Portal</span>
             </button>
+          </div>
 
+          {/* Call-to-Action Mini Pill */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setCurrentLayer('login')}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 rounded-lg shadow-md shadow-indigo-600/30 transition-all whitespace-nowrap cursor-pointer"
+              className="group h-9 px-5 rounded-[12px] bg-black/5 hover:bg-black/10 border border-black/10 text-[14px] font-semibold flex items-center gap-2 text-black transition-all hover:shadow-md cursor-pointer"
             >
-              <span>Get Started</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <span>Student Portal</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="md:hidden p-2 text-black hover:bg-black/5 rounded-lg transition-colors cursor-pointer"
+              aria-label="Open navigation menu"
+            >
+              <Menu className="w-5 h-5" />
             </button>
           </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Hero Section using the user-specified TicketStub Component */}
-      <div className="relative z-10">
-        <TicketStubHero
-          brand="PathFinder"
-          wordmark="PathFinder"
-          company="PathFinder AI"
-          year={2026}
-          sections={sections}
-          eyebrow={[
-            'Beyond conventional exam marks',
-            'Uncovering hidden student potential',
-            'Closing prerequisite gaps while you learn',
-          ]}
-          headline={[
-            'Discover your strengths.',
-            'Close your knowledge gaps.',
-          ]}
-          description="Connect your course performance, confidence metrics, and practical projects. PathFinder AI discovers latent abilities, diagnoses root-cause prerequisites, and generates personalized career roadmaps beyond grades."
-          cta={{ label: 'Student Portal' }}
-          onCtaClick={() => setCurrentLayer('login')}
-          linkGroups={linkGroups}
-          statusCaption="Diagnostic Engine"
-          statusLabels={['Active Diagnosis', 'Engine Paused']}
-          count={14820930}
-          countLabel="Pathways Analyzed"
-          rate={2.2}
-          background="transparent"
-          ink="#f1f5f9"
-          muted="#94a3b8"
-          accent="#ff6d36"
-          accentDeep="#d95a32"
-          accentInk="#070b14"
-          halftone={true}
-          className="border-b border-slate-800/80"
-        />
-      </div>
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/20 backdrop-blur-xs">
+          <div className="w-[280px] h-full bg-white/95 backdrop-blur-[40px] border-l border-black/10 p-6 flex flex-col justify-between shadow-2xl animate-in slide-in-from-right duration-200">
+            <div>
+              <div className="flex items-center justify-between pb-6 border-b border-black/5">
+                <div className="flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-[#0084FF]" />
+                  <span className="font-fustat font-extrabold text-[20px] text-black">
+                    Assist<span className="text-[#0084FF]">.</span>
+                  </span>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 text-black/60 hover:text-black rounded-md"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-      {/* Problem & Solution Comparison Section */}
-      <section id="problem" className="relative z-10 py-24 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-950/70 px-3 py-1 rounded-full border border-indigo-800/50">
-              The Paradigm Shift
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-3">
-              Why Traditional Marks Fail Students
-            </h2>
-            <p className="mt-3 text-sm text-slate-400 leading-relaxed">
-              Standardized exam marks measure test-taking under time constraints,
-              not the upper bound of a student's creative, analytical, or practical potential.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* The Old Way */}
-            <div className="rounded-2xl border border-red-900/40 bg-gradient-to-b from-red-950/25 to-slate-950/60 p-6 sm:p-8 space-y-4 shadow-xl backdrop-blur-md relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl pointer-events-none" />
-              <span className="text-xs font-semibold text-red-400 uppercase tracking-wider block">
-                The Conventional Way
-              </span>
-              <h3 className="text-lg font-bold text-white">Single-Score Reductionism</h3>
-              <ul className="space-y-3.5 text-xs text-slate-300 leading-relaxed">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-400 shrink-0 font-bold text-sm leading-none mt-0.5">✕</span>
-                  <span><strong>Suppressed Hidden Strengths:</strong> Scoring 70% in programming labels a student as "average," even if they build open-source projects every weekend and have 95% passion.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-400 shrink-0 font-bold text-sm leading-none mt-0.5">✕</span>
-                  <span><strong>Vague Feedback:</strong> Advises students to "study harder" without uncovering missing prerequisite concepts like probability distributions or unit analysis.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-400 shrink-0 font-bold text-sm leading-none mt-0.5">✕</span>
-                  <span><strong>Trend-Driven Decisions:</strong> Pushes students into popular streams purely based on cutoff ranks, ignoring genuine cognitive archetypes.</span>
-                </li>
-              </ul>
+              <div className="flex flex-col gap-4 mt-6 text-[15px] font-medium text-black/70">
+                <a
+                  href="#hero"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-black py-1"
+                >
+                  Home
+                </a>
+                <a
+                  href="#features"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-black py-1"
+                >
+                  Features
+                </a>
+                <a
+                  href="#methodology"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-black py-1"
+                >
+                  Company
+                </a>
+                <a
+                  href="#capabilities"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-black py-1"
+                >
+                  Pricing
+                </a>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setCurrentLayer('login');
+                  }}
+                  className="text-left text-[#0084FF] font-semibold py-1 flex items-center justify-between"
+                >
+                  <span>Student Portal</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
-            {/* The PathFinder Way */}
-            <div className="rounded-2xl border border-emerald-900/40 bg-gradient-to-b from-emerald-950/25 to-slate-950/60 p-6 sm:p-8 space-y-4 shadow-xl backdrop-blur-md relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/10 rounded-full blur-2xl pointer-events-none" />
-              <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider block">
-                The PathFinder AI Way
-              </span>
-              <h3 className="text-lg font-bold text-white">Holistic Multi-Vector Intelligence</h3>
-              <ul className="space-y-3.5 text-xs text-slate-300 leading-relaxed">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-400 shrink-0 font-bold text-sm leading-none mt-0.5">✓</span>
-                  <span><strong>Hidden Strengths Discovery:</strong> Separates test anxiety from genuine capability using our weighted model (0.45 Marks + 0.20 Confidence + 0.20 Interest + 0.15 Consistency).</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-400 shrink-0 font-bold text-sm leading-none mt-0.5">✓</span>
-                  <span><strong>Root-Cause Decomposition:</strong> Maps weak topics into interactive visual dependency trees, pinpointing missing foundational building blocks.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-400 shrink-0 font-bold text-sm leading-none mt-0.5">✓</span>
-                  <span><strong>Adaptive 4-Week Roadmap:</strong> Provides weekly milestones, practice problems, and mini-projects that elevate verified career readiness in real time.</span>
-                </li>
-              </ul>
+            <div className="pt-6 border-t border-black/5">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setCurrentLayer('login');
+                }}
+                className="w-full py-2.5 rounded-[12px] bg-[#0084FF] hover:bg-[#0074E0] text-white text-sm font-bold flex items-center justify-center gap-2 shadow-md"
+              >
+                <span>Enter Portal</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>
-      </section>
+      )}
 
-      {/* Three Step Product Flow */}
-      <section id="how-it-works" className="relative z-10 py-24 border-b border-slate-800/80 bg-slate-900/30 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Main Container */}
+      <main id="hero" className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-12 lg:px-20 pt-[110px] md:pt-[120px] pb-16">
+        {/* Dual-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center min-h-[calc(85vh-120px)]">
+          {/* B. Left Column: Copy, Social Proof & CTAs (occupies 5 columns) */}
+          <div className="lg:col-span-5 flex flex-col justify-center items-start text-left max-w-[620px] lg:pr-4">
+            {/* Social Proof Badge */}
+            <div className="px-3 py-1.5 rounded-full bg-black/5 border border-black/5 flex items-center gap-3 w-fit shadow-xs">
+              <div className="flex -space-x-2 select-none">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face"
+                  alt="User 1"
+                  className="w-6 h-6 rounded-full border-1.5 border-white object-cover"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face"
+                  alt="User 2"
+                  className="w-6 h-6 rounded-full border-1.5 border-white object-cover"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face"
+                  alt="User 3"
+                  className="w-6 h-6 rounded-full border-1.5 border-white object-cover"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face"
+                  alt="User 4"
+                  className="w-6 h-6 rounded-full border-1.5 border-white object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <p className="text-[12px] text-black/80 font-normal">
+                Trusted by <strong className="font-bold text-[#171717]">10,000+ users</strong> worldwide
+              </p>
+            </div>
+
+            {/* Main Display Heading */}
+            <h1 className="font-outfit font-black text-[36px] sm:text-[44px] lg:text-[60px] leading-[1.08] tracking-[-3px] mt-6 select-none text-black">
+              Your All in One <br />
+              <span className="text-[#0084FF]">Assist.</span>
+            </h1>
+
+            {/* Body Paragraph */}
+            <p className="font-inter text-[18px] text-black/60 tracking-[-0.5px] leading-relaxed mt-5 max-w-[480px]">
+              Ask questions, get answers, automate tasks, and boost your productivity with the power of AI.
+            </p>
+
+            {/* Button Container */}
+            <div className="mt-8 flex flex-wrap items-center gap-6">
+              {/* Primary Button ("Try Assist." / "Student Portal") */}
+              <button
+                onClick={() => setCurrentLayer('login')}
+                className="group bg-[#0084FF] hover:bg-[#0074E0] text-white pl-6 pr-2 py-2 rounded-[16px] flex items-center gap-4 text-sm font-bold transition-all w-fit shadow-lg cursor-pointer transform hover:-translate-y-0.5"
+                style={{
+                  boxShadow:
+                    'inset 0px 4px 4px 0px rgba(255,255,255,0.35), 0 10px 25px -5px rgba(0, 132, 255, 0.25)',
+                }}
+              >
+                <span>Try Assist.</span>
+                <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#0084FF] shadow-xs group-hover:translate-x-0.5 transition-transform">
+                  <ChevronRight className="w-4 h-4 text-[#0084FF]" />
+                </span>
+              </button>
+
+              {/* Watch Demo Link */}
+              <button
+                onClick={() => setDemoModalOpen(true)}
+                className="flex items-center gap-2 group cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-full bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center border border-blue-100 transition-colors">
+                  <Play className="w-3.5 h-3.5 text-[#0084FF] fill-[#0084FF] ml-0.5" />
+                </div>
+                <span className="font-inter font-bold text-[14px] text-[#0084FF] group-hover:text-[#0074E0] transition-colors">
+                  Watch Demo
+                </span>
+              </button>
+            </div>
+
+            {/* Additional Student Portal Quick Access Badge */}
+            <div className="mt-8 pt-6 border-t border-black/5 flex items-center gap-2 text-xs text-black/50">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0084FF]/10 text-[#0084FF] font-semibold text-[11px]">
+                <Sparkles className="w-3 h-3" />
+                Student Portal Ready
+              </span>
+              <span>·</span>
+              <span>Holistic Aptitude & Pathway Diagnosis</span>
+            </div>
+          </div>
+
+          {/* C. Right Column: Hero Robot Companion Video & Floating Tags (occupies 7 columns) */}
+          <div className="lg:col-span-7 relative w-full flex items-center justify-center lg:justify-end py-10 pointer-events-none">
+            {/* Decorative Orbit Art Background Aura */}
+            <div className="absolute top-[30%] left-[20%] w-[420px] h-[420px] bg-sky-400/15 rounded-full blur-[110px] -z-10 animate-pulse duration-[7000ms]" />
+
+            {/* Orbital Concentric Ring Lines Vector */}
+            <div className="absolute w-[620px] h-[620px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] -z-10 opacity-35 select-none pointer-events-none">
+              <svg className="w-full h-full" viewBox="0 0 620 620" fill="none">
+                <defs>
+                  <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#60B1FF" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#319AFF" stopOpacity="0.2" />
+                  </linearGradient>
+                </defs>
+                {/* Outer Dashed Orbit */}
+                <circle
+                  cx="310"
+                  cy="310"
+                  r="290"
+                  stroke="url(#orbitGrad)"
+                  strokeWidth="1.5"
+                  strokeDasharray="8 12"
+                />
+                {/* Mid Smooth Orbit */}
+                <circle
+                  cx="310"
+                  cy="310"
+                  r="230"
+                  stroke="#319AFF"
+                  strokeOpacity="0.3"
+                  strokeWidth="1"
+                />
+                {/* Inner Dashed Orbit */}
+                <circle
+                  cx="310"
+                  cy="310"
+                  r="170"
+                  stroke="url(#orbitGrad)"
+                  strokeWidth="1.2"
+                  strokeDasharray="4 8"
+                />
+              </svg>
+            </div>
+
+            {/* Video Wrapper */}
+            <div className="relative max-w-[580px] w-full rounded-[24px] select-none block overflow-hidden bg-white/40 shadow-[0_20px_50px_rgba(0,132,255,0.08)]">
+              <video
+                src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_robo_video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls={false}
+                className="w-full h-auto rounded-[24px] block object-contain"
+                style={{
+                  filter: 'brightness(1.02) contrast(1.04)',
+                }}
+              />
+
+              {/* Dynamic Floating Badges (Custom Liquid-Glass Panels) */}
+              
+              {/* 1. "Write an email" Badge (Top Right) */}
+              <div
+                className="absolute top-[16%] -right-2 sm:-right-6 md:-right-8 px-4 sm:px-5 py-2.5 sm:py-3 rounded-[20px] flex items-center gap-3 pointer-events-auto shadow-[0_12px_32px_-4px_rgba(0,132,255,0.14)] bg-gradient-to-br from-white/85 to-white/55 backdrop-blur-[24px] border border-white/80 ring-1 ring-black/5 hover:translate-y-[-2px] hover:scale-[1.02] transition-all cursor-default select-none"
+                style={{
+                  boxShadow:
+                    'inset 0 2.5px 4px rgba(255,255,255,0.8), 0 12px 32px -4px rgba(0,132,255,0.14)',
+                }}
+              >
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0084FF] to-[#0066CC] flex items-center justify-center shadow-[0_4px_12px_rgba(0,132,255,0.3)] shrink-0">
+                  <PenLine className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex flex-col text-left leading-tight">
+                  <span className="font-inter font-black text-[13px] text-neutral-900 tracking-tight">
+                    Write an email
+                  </span>
+                  <span className="font-inter font-semibold text-[10px] text-neutral-500 mt-0.5">
+                    for meeting
+                  </span>
+                </div>
+              </div>
+
+              {/* 2. "Summarize document" Badge (Center Left) */}
+              <div
+                className="absolute top-[52%] -left-2 sm:-left-6 md:-left-8 px-4 sm:px-5 py-2.5 sm:py-3 rounded-[20px] flex items-center gap-3 pointer-events-auto shadow-[0_12px_32px_-4px_rgba(0,132,255,0.14)] bg-gradient-to-br from-white/85 to-white/55 backdrop-blur-[24px] border border-white/80 ring-1 ring-black/5 hover:translate-y-[-2px] hover:scale-[1.02] transition-all cursor-default select-none"
+                style={{
+                  boxShadow:
+                    'inset 0 2.5px 4px rgba(255,255,255,0.8), 0 12px 32px -4px rgba(0,132,255,0.14)',
+                }}
+              >
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0084FF] to-[#0066CC] flex items-center justify-center shadow-[0_4px_12px_rgba(0,132,255,0.3)] shrink-0">
+                  <FileText className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex flex-col text-left leading-tight">
+                  <span className="font-inter font-black text-[13px] text-neutral-900 tracking-tight">
+                    Summarize document
+                  </span>
+                  <span className="font-inter font-semibold text-[10px] text-neutral-500 mt-0.5">
+                    3-page brief
+                  </span>
+                </div>
+              </div>
+
+              {/* 3. "Student Portal" Badge (Bottom Right) */}
+              <div
+                onClick={() => setCurrentLayer('login')}
+                className="absolute bottom-[10%] right-[6%] sm:right-[12%] px-4 sm:px-5 py-2.5 sm:py-3 rounded-[20px] flex items-center gap-3 pointer-events-auto shadow-[0_12px_32px_-4px_rgba(0,132,255,0.14)] bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-[24px] border border-white/80 ring-1 ring-[#0084FF]/20 hover:translate-y-[-2px] hover:scale-[1.02] transition-all cursor-pointer select-none"
+                style={{
+                  boxShadow:
+                    'inset 0 2.5px 4px rgba(255,255,255,0.8), 0 12px 32px -4px rgba(0,132,255,0.14)',
+                }}
+              >
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0084FF] to-[#0066CC] flex items-center justify-center shadow-[0_4px_12px_rgba(0,132,255,0.3)] shrink-0">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex flex-col text-left leading-tight">
+                  <span className="font-inter font-black text-[13px] text-neutral-900 tracking-tight flex items-center gap-1">
+                    Student Portal
+                    <ChevronRight className="w-3.5 h-3.5 text-[#0084FF]" />
+                  </span>
+                  <span className="font-inter font-semibold text-[10px] text-neutral-500 mt-0.5">
+                    Diagnostic & Pathways
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section Divider */}
+        <div className="mt-20 pt-16 border-t border-black/5" />
+
+        {/* Features Showcase Section (Pristine Tech-Forward Corporate Style) */}
+        <section id="features" className="py-12">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="px-3.5 py-1 rounded-full bg-[#0084FF]/10 text-[#0084FF] font-semibold text-xs uppercase tracking-wider inline-flex items-center gap-1.5 border border-[#0084FF]/20">
+              <Bot className="w-3.5 h-3.5" />
+              Intelligent Capabilities
+            </span>
+            <h2 className="font-outfit font-black text-3xl sm:text-4xl text-neutral-900 tracking-tight mt-4">
+              Everything you need in one autonomous companion
+            </h2>
+            <p className="text-black/60 text-base mt-3 leading-relaxed">
+              Designed from the ground up to synthesize multiple cognitive dimensions beyond single exam marks.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Feature 1 */}
+            <div className="p-6 rounded-[24px] bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-[20px] border border-white/80 ring-1 ring-black/5 shadow-[0_10px_30px_rgba(0,132,255,0.06)] hover:shadow-[0_16px_40px_rgba(0,132,255,0.12)] transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0084FF]/15 to-[#0084FF]/5 border border-[#0084FF]/20 flex items-center justify-center text-[#0084FF] mb-5 group-hover:scale-110 transition-transform">
+                <Target className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-bold text-lg text-neutral-900 tracking-tight">
+                Holistic Strength Engine
+              </h3>
+              <p className="text-black/60 text-xs sm:text-sm leading-relaxed mt-2.5">
+                Separates test anxiety from authentic student aptitude using multi-factor interest, consistency, and practical project metrics.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="p-6 rounded-[24px] bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-[20px] border border-white/80 ring-1 ring-black/5 shadow-[0_10px_30px_rgba(0,132,255,0.06)] hover:shadow-[0_16px_40px_rgba(0,132,255,0.12)] transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0084FF]/15 to-[#0084FF]/5 border border-[#0084FF]/20 flex items-center justify-center text-[#0084FF] mb-5 group-hover:scale-110 transition-transform">
+                <Brain className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-bold text-lg text-neutral-900 tracking-tight">
+                Root-Cause Prerequisite Trees
+              </h3>
+              <p className="text-black/60 text-xs sm:text-sm leading-relaxed mt-2.5">
+                Decomposes learning hurdles into intuitive visual dependency nodes, highlighting missing foundational prerequisites before failure occurs.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="p-6 rounded-[24px] bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-[20px] border border-white/80 ring-1 ring-black/5 shadow-[0_10px_30px_rgba(0,132,255,0.06)] hover:shadow-[0_16px_40px_rgba(0,132,255,0.12)] transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0084FF]/15 to-[#0084FF]/5 border border-[#0084FF]/20 flex items-center justify-center text-[#0084FF] mb-5 group-hover:scale-110 transition-transform">
+                <Layers className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-bold text-lg text-neutral-900 tracking-tight">
+                Adaptive 4-Week Roadmaps
+              </h3>
+              <p className="text-black/60 text-xs sm:text-sm leading-relaxed mt-2.5">
+                Dynamic weekly curricula with curated challenges and micro-milestones that update real-time industry readiness scores.
+              </p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="p-6 rounded-[24px] bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-[20px] border border-white/80 ring-1 ring-black/5 shadow-[0_10px_30px_rgba(0,132,255,0.06)] hover:shadow-[0_16px_40px_rgba(0,132,255,0.12)] transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0084FF]/15 to-[#0084FF]/5 border border-[#0084FF]/20 flex items-center justify-center text-[#0084FF] mb-5 group-hover:scale-110 transition-transform">
+                <GraduationCap className="w-6 h-6" />
+              </div>
+              <h3 className="font-outfit font-bold text-lg text-neutral-900 tracking-tight">
+                10+ Industry Pathways
+              </h3>
+              <p className="text-black/60 text-xs sm:text-sm leading-relaxed mt-2.5">
+                Explore real-world careers across AI & Data Science, Cloud, Cyber Defense, UX/UI, and Robotics with explainable match rationales.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Divider */}
+        <div className="mt-16 pt-16 border-t border-black/5" />
+
+        {/* Methodology Flow Section */}
+        <section id="methodology" className="py-12">
           <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-950/70 px-3 py-1 rounded-full border border-indigo-800/50">
-              Product Methodology
+            <span className="px-3.5 py-1 rounded-full bg-black/5 text-black/70 font-semibold text-xs uppercase tracking-wider inline-flex items-center gap-1.5 border border-black/5">
+              Three-Step System
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-3">
-              Three Steps from Uncertainty to Clarity
+            <h2 className="font-outfit font-black text-3xl sm:text-4xl text-neutral-900 tracking-tight mt-4">
+              From marks to actionable direction
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-400">
-              A transparent, verifiable pathway to discovering your genuine potential.
+            <p className="text-black/60 text-sm mt-3 leading-relaxed">
+              Transparent, mathematical modeling without black-box confusion.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-3 flex flex-col justify-between shadow-xl hover:border-slate-700 transition-colors">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="relative p-8 rounded-[24px] bg-white/70 backdrop-blur-md border border-black/5 ring-1 ring-black/[0.03] shadow-sm flex flex-col justify-between">
               <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 mb-4 font-bold text-sm">
+                <span className="font-outfit font-extrabold text-3xl text-[#0084FF] block mb-4">
                   01
-                </div>
-                <h3 className="text-base font-bold text-white">Enter Complete Profile</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2">
-                  Input subject marks alongside subjective confidence, genuine interest ratings, practical projects, and available study hours. Manual input or CSV import supported.
+                </span>
+                <h3 className="font-outfit font-bold text-xl text-neutral-900 mb-2">
+                  Input Academic & Confidence Signals
+                </h3>
+                <p className="text-black/60 text-xs sm:text-sm leading-relaxed">
+                  Enter course grades alongside interest levels, practical hours, and confidence ratings. No single test determines the upper limit.
                 </p>
               </div>
-              <span className="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-                Balances test pressure against practical dedication
-              </span>
+              <div className="mt-6 pt-4 border-t border-black/5 text-[11px] text-black/50 font-medium">
+                Supports direct entry & instant CSV import
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-3 flex flex-col justify-between shadow-xl hover:border-slate-700 transition-colors">
+            <div className="relative p-8 rounded-[24px] bg-white/70 backdrop-blur-md border border-black/5 ring-1 ring-black/[0.03] shadow-sm flex flex-col justify-between">
               <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/30 mb-4 font-bold text-sm">
+                <span className="font-outfit font-extrabold text-3xl text-[#0084FF] block mb-4">
                   02
-                </div>
-                <h3 className="text-base font-bold text-white">Synthesize Diagnostic Insights</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2">
-                  Our explainable engine flags hidden strengths, calculates your Student Strength Index, classifies your Learning DNA archetype, and traces prerequisite dependency graphs.
+                </span>
+                <h3 className="font-outfit font-bold text-xl text-neutral-900 mb-2">
+                  Multi-Vector Neural Diagnosis
+                </h3>
+                <p className="text-black/60 text-xs sm:text-sm leading-relaxed">
+                  Our weighted synthesis extracts hidden strengths, normalizes scores, and constructs dependency prerequisite trees.
                 </p>
               </div>
-              <span className="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-                Transparent mathematics with zero hallucination
-              </span>
+              <div className="mt-6 pt-4 border-t border-black/5 text-[11px] text-black/50 font-medium">
+                Instant calculations with 0 hallucination risk
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-3 flex flex-col justify-between shadow-xl hover:border-slate-700 transition-colors">
+            <div className="relative p-8 rounded-[24px] bg-white/70 backdrop-blur-md border border-black/5 ring-1 ring-black/[0.03] shadow-sm flex flex-col justify-between">
               <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/30 mb-4 font-bold text-sm">
+                <span className="font-outfit font-extrabold text-3xl text-[#0084FF] block mb-4">
                   03
-                </div>
-                <h3 className="text-base font-bold text-white">Execute Roadmap & Land Career</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2">
-                  Work through weekly milestones with interactive checkboxes. Compare 10+ industry pathways, inspect entry roles, salary ranges, and export your official dossier.
+                </span>
+                <h3 className="font-outfit font-bold text-xl text-neutral-900 mb-2">
+                  Launch Student Portal & Roadmaps
+                </h3>
+                <p className="text-black/60 text-xs sm:text-sm leading-relaxed">
+                  Step directly into your interactive intelligence dashboard, track milestone completion, and compare target career benchmarks.
                 </p>
               </div>
-              <span className="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-                Live readiness score increases with each completed task
+              <div className="mt-6 pt-4 border-t border-black/5 text-[11px] text-black/50 font-medium">
+                Real-time readiness updates upon each completed task
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Divider */}
+        <div className="mt-16 pt-16 border-t border-black/5" />
+
+        {/* High-Impact CTA Banner */}
+        <section id="capabilities" className="py-12">
+          <div className="relative rounded-[32px] p-8 sm:p-12 lg:p-16 bg-gradient-to-br from-white/95 via-white/80 to-[#0084FF]/10 backdrop-blur-[30px] border border-white/80 ring-1 ring-black/5 shadow-[0_20px_50px_rgba(0,132,255,0.08)] text-center overflow-hidden">
+            {/* Ambient inner glow */}
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#319AFF]/15 rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+              <span className="px-3.5 py-1 rounded-full bg-[#0084FF]/10 text-[#0084FF] font-semibold text-xs uppercase tracking-wider inline-flex items-center gap-1.5 border border-[#0084FF]/20">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Student Portal Gateway
               </span>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Core Capabilities Section (Replacing personas on landing page) */}
-      <section id="capabilities" className="relative z-10 py-24 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-950/70 px-3 py-1 rounded-full border border-indigo-800/50">
-              Platform Architecture
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-3">
-              Intelligent Capabilities Built Beyond Grades
-            </h2>
-            <p className="mt-3 text-sm text-slate-400 leading-relaxed">
-              Every feature in PathFinder AI is engineered to give students actionable clarity and real agency over their career paths.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Capability 1 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-indigo-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                <BarChart3 className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">Multi-Vector Strength Scoring</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Computes composite strength from normalized marks (45%), subjective confidence (20%), personal interest (20%), and consistency (15%).
-              </p>
-            </div>
-
-            {/* Capability 2 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-violet-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20">
-                <Sparkles className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">Hidden Strengths Discovery</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Flags latent potential when interest and confidence are high despite average test scores—revealing talents masked by exam stress.
-              </p>
-            </div>
-
-            {/* Capability 3 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-teal-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20">
-                <GitBranch className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">Root-Cause Knowledge Graphs</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Traces weaknesses back to missing foundational building blocks (e.g. calculus and probability for ML) with multi-tier visual dependency maps.
-              </p>
-            </div>
-
-            {/* Capability 4 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-amber-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                <Target className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">Adaptive 4-Week Roadmaps</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Generates actionable weekly milestones with practice problems, revision tasks, and signature mini-projects that recalculate readiness upon completion.
-              </p>
-            </div>
-
-            {/* Capability 5 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-cyan-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                <Compass className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">10+ Career Pathways Dossier</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Ranks career matches with transparent rationale, salary estimates, entry-level job titles, industry demand outlooks, and multi-career comparison.
-              </p>
-            </div>
-
-            {/* Capability 6 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-emerald-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <Brain className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">Learning DNA Archetypes</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Classifies whether the student thrives as an analytical builder, human-centered synthesizer, or systems architect to tailor recommendations.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Transparent Scoring Formula Section */}
-      <section id="scoring" className="relative z-10 py-24 border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950 p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-            
-            <div className="max-w-3xl">
-              <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">
-                Explainable AI & Diagnostics
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                Mathematical Transparency You Can Trust
+              <h2 className="font-outfit font-black text-3xl sm:text-5xl text-neutral-900 tracking-tight leading-[1.1]">
+                Ready to unlock your true career potential?
               </h2>
-              <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Unlike opaque black-box models, PathFinder AI uses a clear, explainable scoring formulation designed by educators and psychometricians:
+
+              <p className="font-inter text-base sm:text-lg text-black/60 max-w-xl mx-auto leading-relaxed">
+                Enter your student portal today. Discover latent capabilities, solve root-cause knowledge gaps, and follow tailored learning roadmaps.
               </p>
 
-              <div className="mt-6 p-4 sm:p-6 rounded-2xl bg-slate-950 border border-slate-800 font-mono text-xs sm:text-sm text-indigo-300 overflow-x-auto shadow-inner">
-                <code>Subject Strength = (0.45 × Normalized Marks) + (0.20 × Confidence) + (0.20 × Interest) + (0.15 × Consistency)</code>
-              </div>
-
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
                 <button
                   onClick={() => setCurrentLayer('login')}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer"
+                  className="group bg-[#0084FF] hover:bg-[#0074E0] text-white pl-8 pr-3 py-3 rounded-[16px] flex items-center gap-4 text-base font-bold transition-all shadow-xl cursor-pointer transform hover:-translate-y-0.5"
+                  style={{
+                    boxShadow:
+                      'inset 0px 4px 4px 0px rgba(255,255,255,0.35), 0 10px 25px -5px rgba(0, 132, 255, 0.25)',
+                  }}
                 >
-                  <span>Launch Student Portal</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <span>Student Portal Log In</span>
+                  <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#0084FF] shadow-xs group-hover:translate-x-0.5 transition-transform">
+                    <ArrowRight className="w-4 h-4 text-[#0084FF]" />
+                  </span>
                 </button>
+
                 <button
-                  onClick={() => setCurrentLayer('login')}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer"
+                  onClick={() => setDemoModalOpen(true)}
+                  className="px-6 py-3 rounded-[16px] bg-black/5 hover:bg-black/10 border border-black/10 text-sm font-semibold text-black transition-all cursor-pointer flex items-center gap-2"
                 >
-                  <span>Test with Demo Personas in Login Portal</span>
+                  <Play className="w-3.5 h-3.5 text-[#0084FF] fill-[#0084FF]" />
+                  <span>Watch Interactive Demo</span>
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/80 bg-[#060913] py-10 text-xs text-slate-500">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Footer */}
+        <footer className="mt-20 pt-10 pb-8 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-black/50">
           <div className="flex items-center gap-2">
-            <Compass className="h-4 w-4 text-indigo-400" />
-            <span className="font-semibold text-slate-300">PathFinder AI</span>
-            <span>·</span>
-            <span>Discovering Student Potential Beyond Conventional Marks</span>
+            <Bot className="w-4 h-4 text-[#0084FF]" />
+            <span className="font-fustat font-bold text-black text-sm">
+              Assist<span className="text-[#0084FF]">.</span>
+            </span>
+            <span className="text-black/30">|</span>
+            <span>PathFinder AI Student Workspace</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <a href="#problem" className="hover:text-slate-300 transition-colors">
-              Why Beyond Marks
-            </a>
-            <a href="#how-it-works" className="hover:text-slate-300 transition-colors">
-              Three-Step Flow
-            </a>
-            <a href="#capabilities" className="hover:text-slate-300 transition-colors">
-              Core Capabilities
-            </a>
-            <button
-              onClick={() => setCurrentLayer('login')}
-              className="text-indigo-400 hover:text-indigo-300 transition-colors font-medium cursor-pointer"
-            >
+            <button onClick={() => setCurrentLayer('login')} className="hover:text-black transition-colors cursor-pointer">
               Student Portal
             </button>
+            <a href="#features" className="hover:text-black transition-colors">
+              Features
+            </a>
+            <a href="#methodology" className="hover:text-black transition-colors">
+              Methodology
+            </a>
+            <span>© 2026 Assist. All rights reserved.</span>
+          </div>
+        </footer>
+      </main>
+
+      {/* Interactive Watch Demo Video Modal */}
+      {demoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-3xl rounded-[28px] bg-white/95 backdrop-blur-[30px] border border-white/90 ring-1 ring-black/10 p-6 sm:p-8 shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#0084FF]/10 flex items-center justify-center text-[#0084FF]">
+                  <Bot className="w-5 h-5 text-[#0084FF]" />
+                </div>
+                <div>
+                  <h3 className="font-outfit font-bold text-base text-neutral-900">
+                    Assist. Companion in Action
+                  </h3>
+                  <p className="text-xs text-neutral-500">Autonomous Student Intelligence & Workflow Automation</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setDemoModalOpen(false)}
+                className="p-1.5 rounded-full hover:bg-black/5 text-black/60 hover:text-black transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="relative aspect-video rounded-[20px] overflow-hidden bg-neutral-950 shadow-inner flex items-center justify-center">
+              <video
+                src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_robo_video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-black/5">
+              <p className="text-xs text-neutral-600 max-w-md">
+                Experience instant diagnosis, multi-variable academic weighting, and intelligent career alignments.
+              </p>
+              <button
+                onClick={() => {
+                  setDemoModalOpen(false);
+                  setCurrentLayer('login');
+                }}
+                className="px-5 py-2.5 rounded-[12px] bg-[#0084FF] hover:bg-[#0074E0] text-white text-xs font-bold flex items-center gap-2 shadow-md cursor-pointer"
+              >
+                <span>Launch Student Portal</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </div>
-      </footer>
+      )}
     </div>
   );
 };
