@@ -111,17 +111,7 @@ export const LandingPageLayer: React.FC = () => {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={() => setHeroTheme(heroTheme === 'modern' ? 'ticket' : 'modern')}
-              className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors cursor-pointer"
-              title="Toggle landing page hero theme"
-            >
-              <Sparkles className="h-3 w-3 text-indigo-400" />
-              <span>Theme: {heroTheme === 'modern' ? 'Modern AI' : 'Ticket Stub'}</span>
-            </button>
-
+<div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setCurrentLayer('login')}
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors whitespace-nowrap shadow-sm cursor-pointer"
