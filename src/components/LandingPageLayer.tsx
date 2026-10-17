@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStudent } from '../context/StudentContext';
-import { LandingHero } from './LandingHero';
 import { TicketStubHero } from './TicketStubLanding';
 import {
   Compass,
@@ -26,7 +25,6 @@ import {
 
 export const LandingPageLayer: React.FC = () => {
   const { setCurrentLayer, setIsOnboardingOpen } = useStudent();
-  const [heroTheme, setHeroTheme] = useState<'modern' | 'ticket'>('modern');
 
   const sections = [
     { label: 'Overview', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
@@ -86,7 +84,7 @@ export const LandingPageLayer: React.FC = () => {
 
       {/* Primary Top Bar */}
       <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#060913]/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5 shrink-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-lg shadow-indigo-600/30 ring-1 ring-white/20">
               <Compass className="h-5 w-5" />
@@ -96,7 +94,7 @@ export const LandingPageLayer: React.FC = () => {
             </span>
           </div>
 
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
             <a href="#problem" className="hover:text-white transition-colors">
               Why Beyond Marks
             </a>
@@ -111,7 +109,7 @@ export const LandingPageLayer: React.FC = () => {
             </a>
           </nav>
 
-<div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setCurrentLayer('login')}
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors whitespace-nowrap shadow-sm cursor-pointer"
@@ -131,51 +129,41 @@ export const LandingPageLayer: React.FC = () => {
         </div>
       </header>
 
-      {/* Hero Section - Defaults to the Modern PathFinder AI Hero (Second Photo) */}
+      {/* Hero Section using the TicketStub Component */}
       <div className="relative z-10">
-        {heroTheme === 'modern' ? (
-          <LandingHero
-            onStartAnalysis={() => {
-              setIsOnboardingOpen(true);
-              setCurrentLayer('dashboard');
-            }}
-            onStudentPortal={() => setCurrentLayer('login')}
-          />
-        ) : (
-          <TicketStubHero
-            brand="PathFinder"
-            wordmark="PathFinder"
-            company="PathFinder AI"
-            year={2026}
-            sections={sections}
-            eyebrow={[
-              'Beyond conventional exam marks',
-              'Uncovering hidden student potential',
-              'Closing prerequisite gaps while you learn',
-            ]}
-            headline={[
-              'Discover your strengths.',
-              'Close your knowledge gaps.',
-            ]}
-            description="Connect your course performance, confidence metrics, and practical projects. PathFinder AI discovers latent abilities, diagnoses root-cause prerequisites, and generates personalized career roadmaps beyond grades."
-            cta={{ label: 'Student Portal' }}
-            onCtaClick={() => setCurrentLayer('login')}
-            linkGroups={linkGroups}
-            statusCaption="Diagnostic Engine"
-            statusLabels={['Active Diagnosis', 'Engine Paused']}
-            count={14820930}
-            countLabel="Pathways Analyzed"
-            rate={2.2}
-            background="transparent"
-            ink="#f1f5f9"
-            muted="#94a3b8"
-            accent="#ff6d36"
-            accentDeep="#d95a32"
-            accentInk="#070b14"
-            halftone={true}
-            className="border-b border-slate-800/80"
-          />
-        )}
+        <TicketStubHero
+          brand="PathFinder"
+          wordmark="PathFinder"
+          company="PathFinder AI"
+          year={2026}
+          sections={sections}
+          eyebrow={[
+            'Beyond conventional exam marks',
+            'Uncovering hidden student potential',
+            'Closing prerequisite gaps while you learn',
+          ]}
+          headline={[
+            'Discover your strengths.',
+            'Close your knowledge gaps.',
+          ]}
+          description="Connect your course performance, confidence metrics, and practical projects. PathFinder AI discovers latent abilities, diagnoses root-cause prerequisites, and generates personalized career roadmaps beyond grades."
+          cta={{ label: 'Student Portal' }}
+          onCtaClick={() => setCurrentLayer('login')}
+          linkGroups={linkGroups}
+          statusCaption="Diagnostic Engine"
+          statusLabels={['Active Diagnosis', 'Engine Paused']}
+          count={14820930}
+          countLabel="Pathways Analyzed"
+          rate={2.2}
+          background="transparent"
+          ink="#f1f5f9"
+          muted="#94a3b8"
+          accent="#ff6d36"
+          accentDeep="#d95a32"
+          accentInk="#070b14"
+          halftone={true}
+          className="border-b border-slate-800/80"
+        />
       </div>
 
       {/* Problem & Solution Comparison Section */}
@@ -260,174 +248,195 @@ export const LandingPageLayer: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-3 flex flex-col justify-between shadow-xl hover:border-slate-700 transition-colors">
-              <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 mb-4 font-bold text-sm">
-                  01
+            {/* Step 1 */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 flex flex-col justify-between space-y-6 hover:border-slate-700 transition-all group">
+              <div className="space-y-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-950/80 text-indigo-400 border border-indigo-900/60 group-hover:scale-105 transition-transform">
+                  <Brain className="h-6 w-6" />
                 </div>
-                <h3 className="text-base font-bold text-white">Enter Complete Profile</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2">
-                  Input subject marks alongside subjective confidence, genuine interest ratings, practical projects, and available study hours. Manual input or CSV import supported.
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono text-indigo-400 font-semibold uppercase tracking-wider">
+                    Step 01 · Diagnostic Input
+                  </span>
+                  <h3 className="text-base font-bold text-white">Multidimensional Profile</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Enter course grades, self-assessed concept confidence (1-10), passion scores, and practical project experiences.
                 </p>
               </div>
-              <span className="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-                Balances test pressure against practical dedication
-              </span>
+              <div className="pt-4 border-t border-slate-800/80 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>Takes ~3 minutes</span>
+                <span className="text-indigo-400 font-medium">4 Core Dimensions →</span>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-3 flex flex-col justify-between shadow-xl hover:border-slate-700 transition-colors">
-              <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/30 mb-4 font-bold text-sm">
-                  02
+            {/* Step 2 */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 flex flex-col justify-between space-y-6 hover:border-slate-700 transition-all group">
+              <div className="space-y-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-950/80 text-violet-400 border border-violet-900/60 group-hover:scale-105 transition-transform">
+                  <GitBranch className="h-6 w-6" />
                 </div>
-                <h3 className="text-base font-bold text-white">Synthesize Diagnostic Insights</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2">
-                  Our explainable engine flags hidden strengths, calculates your Student Strength Index, classifies your Learning DNA archetype, and traces prerequisite dependency graphs.
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono text-violet-400 font-semibold uppercase tracking-wider">
+                    Step 02 · Analysis Engine
+                  </span>
+                  <h3 className="text-base font-bold text-white">Root-Cause Gap Detection</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Our algorithm calculates your composite readiness, flags masked strengths, and traces low-scoring areas to their foundational concepts.
                 </p>
               </div>
-              <span className="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-                Transparent mathematics with zero hallucination
-              </span>
+              <div className="pt-4 border-t border-slate-800/80 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>Interactive tree graph</span>
+                <span className="text-violet-400 font-medium">Explainable Graph →</span>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-3 flex flex-col justify-between shadow-xl hover:border-slate-700 transition-colors">
-              <div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/30 mb-4 font-bold text-sm">
-                  03
+            {/* Step 3 */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 flex flex-col justify-between space-y-6 hover:border-slate-700 transition-all group">
+              <div className="space-y-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-950/80 text-teal-400 border border-teal-900/60 group-hover:scale-105 transition-transform">
+                  <TrendingUp className="h-6 w-6" />
                 </div>
-                <h3 className="text-base font-bold text-white">Execute Roadmap & Land Career</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mt-2">
-                  Work through weekly milestones with interactive checkboxes. Compare 10+ industry pathways, inspect entry roles, salary ranges, and export your official dossier.
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono text-teal-400 font-semibold uppercase tracking-wider">
+                    Step 03 · Action Roadmap
+                  </span>
+                  <h3 className="text-base font-bold text-white">Adaptive Learning Trajectory</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Receive ranked career matches with confidence percentiles, required skill blueprints, and a customized 4-week learning roadmap.
                 </p>
               </div>
-              <span className="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-                Live readiness score increases with each completed task
-              </span>
+              <div className="pt-4 border-t border-slate-800/80 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>Dynamic weekly tracker</span>
+                <span className="text-teal-400 font-medium">Exportable Plan →</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Core Capabilities Section (Replacing personas on landing page) */}
+      {/* Core Capabilities Section */}
       <section id="capabilities" className="relative z-10 py-24 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-950/70 px-3 py-1 rounded-full border border-indigo-800/50">
-              Platform Architecture
+            <span className="text-xs font-semibold text-teal-400 uppercase tracking-wider bg-teal-950/70 px-3 py-1 rounded-full border border-teal-800/50">
+              Built for Students & Mentors
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-3">
-              Intelligent Capabilities Built Beyond Grades
+              Four Specialized Diagnostic Engines
             </h2>
             <p className="mt-3 text-sm text-slate-400 leading-relaxed">
-              Every feature in PathFinder AI is engineered to give students actionable clarity and real agency over their career paths.
+              Every feature in PathFinder AI is explainable, student-first, and anchored in verifiable academic logic.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Capability 1 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-indigo-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                <BarChart3 className="h-5 w-5" />
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3">
+              <div className="h-10 w-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold">
+                01
               </div>
-              <h3 className="text-base font-bold text-white">Multi-Vector Strength Scoring</h3>
+              <h3 className="text-sm font-bold text-white">Hidden Strengths Engine</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Computes composite strength from normalized marks (45%), subjective confidence (20%), personal interest (20%), and consistency (15%).
+                Identifies high-interest, high-consistency subjects where exam anxiety depressed raw scores, rescuing valuable talent.
               </p>
             </div>
 
             {/* Capability 2 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-violet-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20">
-                <Sparkles className="h-5 w-5" />
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3">
+              <div className="h-10 w-10 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center font-bold">
+                02
               </div>
-              <h3 className="text-base font-bold text-white">Hidden Strengths Discovery</h3>
+              <h3 className="text-sm font-bold text-white">Root-Cause Dependency Graphs</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Flags latent potential when interest and confidence are high despite average test scores—revealing talents masked by exam stress.
+                Instead of saying "You are weak in Machine Learning," PathFinder isolates the root cause in Matrix Decomposition or Calculus.
               </p>
             </div>
 
             {/* Capability 3 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-teal-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20">
-                <GitBranch className="h-5 w-5" />
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3">
+              <div className="h-10 w-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold">
+                03
               </div>
-              <h3 className="text-base font-bold text-white">Root-Cause Knowledge Graphs</h3>
+              <h3 className="text-sm font-bold text-white">Weighted Fit Percentiles</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Traces weaknesses back to missing foundational building blocks (e.g. calculus and probability for ML) with multi-tier visual dependency maps.
+                Calculates real-world market alignments against 10+ industry roles with granular fit percentages and gap severity.
               </p>
             </div>
 
             {/* Capability 4 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-amber-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                <Target className="h-5 w-5" />
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3">
+              <div className="h-10 w-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
+                04
               </div>
-              <h3 className="text-base font-bold text-white">Adaptive 4-Week Roadmaps</h3>
+              <h3 className="text-sm font-bold text-white">Exportable Action Roadmaps</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Generates actionable weekly milestones with practice problems, revision tasks, and signature mini-projects that recalculate readiness upon completion.
-              </p>
-            </div>
-
-            {/* Capability 5 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-cyan-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                <Compass className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">10+ Career Pathways Dossier</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Ranks career matches with transparent rationale, salary estimates, entry-level job titles, industry demand outlooks, and multi-career comparison.
-              </p>
-            </div>
-
-            {/* Capability 6 */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 space-y-3 hover:border-emerald-500/40 hover:bg-slate-900/80 transition-all shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <Brain className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-bold text-white">Learning DNA Archetypes</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Classifies whether the student thrives as an analytical builder, human-centered synthesizer, or systems architect to tailor recommendations.
+                Instantly generate print-ready student dossiers with visual radar charts, gap remediation checklists, and weekly milestones.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Transparent Scoring Formula Section */}
+      {/* Transparent Scoring Engine Showcase */}
       <section id="scoring" className="relative z-10 py-24 border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950 p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-            
-            <div className="max-w-3xl">
-              <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">
-                Explainable AI & Diagnostics
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                Mathematical Transparency You Can Trust
-              </h2>
-              <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Unlike opaque black-box models, PathFinder AI uses a clear, explainable scoring formulation designed by educators and psychometricians:
-              </p>
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-950/70 px-3 py-1 rounded-full border border-indigo-800/50">
+                  Transparent & Non-Black-Box
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  How the PathFinder Scoring Formula Works
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  We believe student evaluation must be 100% transparent. No hidden black-box algorithms. Every score is mathematically grounded:
+                </p>
 
-              <div className="mt-6 p-4 sm:p-6 rounded-2xl bg-slate-950 border border-slate-800 font-mono text-xs sm:text-sm text-indigo-300 overflow-x-auto shadow-inner">
-                <code>Subject Strength = (0.45 × Normalized Marks) + (0.20 × Confidence) + (0.20 × Interest) + (0.15 × Consistency)</code>
+                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 font-mono text-xs text-indigo-300 space-y-2">
+                  <div className="text-slate-400">// Composite Readiness Score (0-100)</div>
+                  <div>
+                    Composite = (0.45 × Marks) + (0.20 × Confidence) + (0.20 × Interest) + (0.15 × Consistency)
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                  <div className="p-3 rounded-lg bg-slate-900/70 border border-slate-800 text-center">
+                    <span className="text-xs font-bold text-white block">45%</span>
+                    <span className="text-[11px] text-slate-400">Exam Marks</span>
+                  </div>
+                  <div className="p-3 rounded-lg bg-slate-900/70 border border-slate-800 text-center">
+                    <span className="text-xs font-bold text-white block">20%</span>
+                    <span className="text-[11px] text-slate-400">Confidence</span>
+                  </div>
+                  <div className="p-3 rounded-lg bg-slate-900/70 border border-slate-800 text-center">
+                    <span className="text-xs font-bold text-white block">20%</span>
+                    <span className="text-[11px] text-slate-400">Interest</span>
+                  </div>
+                  <div className="p-3 rounded-lg bg-slate-900/70 border border-slate-800 text-center">
+                    <span className="text-xs font-bold text-white block">15%</span>
+                    <span className="text-[11px] text-slate-400">Consistency</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <button
-                  onClick={() => setCurrentLayer('login')}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer"
-                >
-                  <span>Launch Student Portal</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setCurrentLayer('login')}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer"
-                >
-                  <span>Test with Demo Personas in Login Portal</span>
-                </button>
+              <div className="lg:col-span-5 p-6 rounded-xl border border-slate-800 bg-slate-900/60 space-y-4">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-amber-400" />
+                  <span>Hidden Strength Detection Rule</span>
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  A topic is automatically flagged as a <strong>Hidden Strength</strong> when:
+                </p>
+                <div className="p-3.5 rounded-lg bg-slate-950 border border-amber-900/40 text-amber-300 font-mono text-xs">
+                  Interest ≥ 80% &amp;&amp; Confidence ≥ 75% &amp;&amp; Marks &lt; 75%
+                </div>
+                <p className="text-[11px] text-slate-500 italic">
+                  This catches high-potential students whose talent was suppressed by test anxiety, harsh grading, or suboptimal learning environments.
+                </p>
               </div>
             </div>
           </div>
@@ -435,31 +444,34 @@ export const LandingPageLayer: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/80 bg-[#060913] py-10 text-xs text-slate-500">
+      <footer className="relative z-10 border-t border-slate-800/80 bg-slate-950 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <Compass className="h-4 w-4 text-indigo-400" />
-            <span className="font-semibold text-slate-300">PathFinder AI</span>
-            <span>·</span>
-            <span>Discovering Student Potential Beyond Conventional Marks</span>
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-sm">
+              <Compass className="h-4 w-4" />
+            </div>
+            <span className="text-sm font-bold text-white tracking-tight">PathFinder AI</span>
+            <span className="text-xs text-slate-500 ml-2">· Explainable Career Intelligence</span>
           </div>
 
-          <div className="flex items-center gap-6">
-            <a href="#problem" className="hover:text-slate-300 transition-colors">
-              Why Beyond Marks
-            </a>
-            <a href="#how-it-works" className="hover:text-slate-300 transition-colors">
-              Three-Step Flow
-            </a>
-            <a href="#capabilities" className="hover:text-slate-300 transition-colors">
-              Core Capabilities
-            </a>
+          <div className="flex items-center gap-6 text-xs text-slate-400">
             <button
               onClick={() => setCurrentLayer('login')}
-              className="text-indigo-400 hover:text-indigo-300 transition-colors font-medium cursor-pointer"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Student Portal
             </button>
+            <button
+              onClick={() => {
+                setIsOnboardingOpen(true);
+                setCurrentLayer('dashboard');
+              }}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Start Free Assessment
+            </button>
+            <span className="text-slate-600">|</span>
+            <span className="text-slate-500">© 2026 PathFinder AI</span>
           </div>
         </div>
       </footer>
